@@ -1,0 +1,32 @@
+{
+  "name": "sayo-supply-chain",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port=3008 --host=0.0.0.0",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "clean": "rm -rf dist",
+    "lint": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.14",
+    "d3-geo": "^3.1.1",
+    "lucide-vue-next": "^0.546.0",
+    "topojson-client": "^3.1.0",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@types/d3-geo": "^3.1.0",
+    "@types/node": "^22.14.0",
+    "@types/topojson-client": "^3.1.5",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "autoprefixer": "^10.4.21",
+    "tailwindcss": "^4.1.14",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.3",
+    "vue-tsc": "^2.2.8"
+  }
+}

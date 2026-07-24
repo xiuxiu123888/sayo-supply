@@ -1,0 +1,60 @@
+<script setup lang="ts">
+import { TrainFront, Truck } from 'lucide-vue-next';
+import { useLanguage } from '../i18n';
+
+const { t } = useLanguage();
+</script>
+
+<template>
+  <section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold text-slate-900 mb-4">{{ t('services.title') }}</h2>
+        <div class="w-12 h-1 bg-blue-600 mx-auto rounded-full mb-6" />
+        <p class="text-slate-600 max-w-2xl mx-auto text-sm leading-relaxed">
+          {{ t('services.desc') }}
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
+        <div class="group flex flex-col">
+          <div class="relative h-64 sm:h-80 mb-8 rounded-2xl overflow-hidden bg-slate-100">
+            <img
+              src="https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&q=80&w=800"
+              alt="Railway Transport"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            />
+          </div>
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 mr-4">
+              <TrainFront class="w-6 h-6" />
+            </div>
+            <h3 class="text-2xl font-bold text-slate-900">{{ t('services.tab.rail') }}</h3>
+          </div>
+          <p class="text-slate-600 text-sm leading-relaxed mb-8 flex-1">
+            {{ t('services.rail1.adv') }} {{ t('services.rail2.adv') }}
+          </p>
+        </div>
+
+        <div class="group flex flex-col">
+          <div class="relative h-64 sm:h-80 mb-8 rounded-2xl overflow-hidden bg-slate-100">
+            <img
+              src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&q=80&w=800"
+              alt="Road Transport"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            />
+          </div>
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center text-amber-500 mr-4">
+              <Truck class="w-6 h-6" />
+            </div>
+            <h3 class="text-2xl font-bold text-slate-900">{{ t('services.tab.truck') }}</h3>
+          </div>
+          <p class="text-slate-600 text-sm leading-relaxed mb-8 flex-1">
+            {{ t('services.truck1.adv') }} {{ t('services.truck2.adv') }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>

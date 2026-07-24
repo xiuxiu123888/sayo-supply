@@ -1,0 +1,6 @@
+{
+  "name": "Sayo Supply Chain",
+  "description": "Logistics company website for 山岳供应链 (Sayo Supply Chain Co., Ltd.), featuring railway and trucking services across Eurasia.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
