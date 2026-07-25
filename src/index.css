@@ -1,38 +1,75 @@
 @import "tailwindcss";
 
 @theme {
-  --color-blue-50: #eef2fb;
-  --color-blue-100: #d5e1f5;
-  --color-blue-200: #aebceb;
-  --color-blue-300: #7b94dd;
-  --color-blue-400: #4667ca;
-  --color-blue-500: #254db5;
+  /* Deep blue — trust & stability, slightly warmer undertone */
+  --color-blue-50: #eef3fa;
+  --color-blue-100: #d9e4f4;
+  --color-blue-200: #b5c9e8;
+  --color-blue-300: #84a3d6;
+  --color-blue-400: #5278c0;
+  --color-blue-500: #2f57ad;
   --color-blue-600: #0C3CA0;
-  --color-blue-700: #0a2d78;
-  --color-blue-800: #082460;
-  --color-blue-900: #071f50;
+  --color-blue-700: #0b327f;
+  --color-blue-800: #0a2864;
+  --color-blue-900: #081f4c;
 
-  --color-amber-50: #fff8e6;
-  --color-amber-100: #ffecb3;
-  --color-amber-200: #ffe080;
-  --color-amber-300: #ffd44d;
-  --color-amber-400: #ffc81a;
-  --color-amber-500: #FFB901;
-  --color-amber-600: #e6a700;
-  --color-amber-700: #b38200;
-  --color-amber-800: #805d00;
-  --color-amber-900: #4d3800;
+  /* Amber / gold — service & vitality */
+  --color-amber-50: #fff9eb;
+  --color-amber-100: #ffefc2;
+  --color-amber-200: #ffe08a;
+  --color-amber-300: #ffcc47;
+  --color-amber-400: #ffb901;
+  --color-amber-500: #f0a800;
+  --color-amber-600: #d98900;
+  --color-amber-700: #b36800;
+  --color-amber-800: #8f5008;
+  --color-amber-900: #75420c;
 
-  --color-orange-50: #fff8e6;
-  --color-orange-100: #ffecb3;
-  --color-orange-200: #ffe080;
-  --color-orange-300: #ffd44d;
-  --color-orange-400: #ffc81a;
-  --color-orange-500: #FFB901;
-  --color-orange-600: #e6a700;
-  --color-orange-700: #b38200;
-  --color-orange-800: #805d00;
-  --color-orange-900: #4d3800;
+  --color-orange-50: #fff6ed;
+  --color-orange-100: #ffead5;
+  --color-orange-200: #ffd0a8;
+  --color-orange-300: #ffb070;
+  --color-orange-400: #ff8a38;
+  --color-orange-500: #f06d14;
+  --color-orange-600: #d9540a;
+  --color-orange-700: #b43f0b;
+  --color-orange-800: #903410;
+  --color-orange-900: #742d10;
+
+  /* Warm neutrals (override cool slate site-wide) */
+  --color-slate-50: #fbf7f2;
+  --color-slate-100: #f3ebe3;
+  --color-slate-200: #e6d8cc;
+  --color-slate-300: #d2bfaf;
+  --color-slate-400: #b39a88;
+  --color-slate-500: #927c6b;
+  --color-slate-600: #756355;
+  --color-slate-700: #5e4f45;
+  --color-slate-800: #3f352f;
+  --color-slate-900: #2a231f;
+  --color-slate-950: #171411;
+
+  --color-white: #fffdf9;
+}
+
+@layer base {
+  html {
+    background-color: #fbf7f2;
+  }
+
+  body {
+    background:
+      radial-gradient(ellipse 80% 50% at 10% -10%, rgba(255, 185, 1, 0.12), transparent 55%),
+      radial-gradient(ellipse 70% 45% at 90% 0%, rgba(12, 60, 160, 0.08), transparent 50%),
+      linear-gradient(180deg, #fbf7f2 0%, #f6efe7 45%, #fbf7f2 100%);
+    color: #2a231f;
+    min-height: 100vh;
+  }
+
+  ::selection {
+    background: rgba(255, 185, 1, 0.35);
+    color: #2a231f;
+  }
 }
 
 @keyframes dash {

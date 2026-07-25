@@ -116,10 +116,10 @@ const services = computed(() => [
         <div class="absolute inset-0 bg-gradient-to-r from-slate-50 via-slate-50/90 to-transparent" />
       </div>
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="max-w-2xl animate-fade-up">
+        <div class="animate-fade-up">
           <h1 class="text-4xl md:text-5xl font-bold mb-6 text-slate-900">{{ t('services.title') }}</h1>
           <div class="w-16 h-1.5 bg-blue-600 rounded-full mb-8" />
-          <p class="text-xl md:text-2xl text-slate-600 font-light leading-relaxed">
+          <p class="text-xl md:text-2xl text-slate-600 font-light leading-relaxed text-balance">
             {{ t('services.desc') }}
           </p>
         </div>

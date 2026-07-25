@@ -7,6 +7,10 @@ import type { FeatureCollection, Geometry } from 'geojson';
 import { Navigation, MapPin } from 'lucide-vue-next';
 import { useLanguage } from '../i18n';
 
+defineProps<{
+  hideHeader?: boolean;
+}>();
+
 const geoUrl = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json';
 
 const allMarkers: Record<string, [number, number]> = {
@@ -133,9 +137,9 @@ onMounted(async () => {
 </script>
 
 <template>
-  <section id="network" class="py-10 bg-white">
+  <section id="network" class="py-16 md:py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
+      <div v-if="!hideHeader" class="text-center mb-12">
         <h2 class="text-3xl font-bold text-slate-900 mb-4">{{ t('network.title') }}</h2>
         <div class="w-12 h-1 bg-blue-600 mx-auto rounded-full mb-6" />
         <p class="text-slate-600 max-w-2xl mx-auto text-sm leading-relaxed">
@@ -151,8 +155,8 @@ onMounted(async () => {
             class="text-left px-5 py-4 rounded-xl transition-all duration-300 flex items-center justify-between"
             :class="
               route.id === activeRouteId
-                ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30 font-bold'
-                : 'bg-slate-50 text-slate-700 hover:bg-slate-100 hover:text-blue-600 font-medium'
+                ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20 font-bold'
+                : 'bg-slate-50 text-slate-700 hover:bg-amber-50 hover:text-blue-600 font-medium'
             "
             @click="activeRouteId = route.id"
           >
@@ -162,7 +166,7 @@ onMounted(async () => {
         </div>
 
         <div class="w-full lg:w-3/4">
-          <div class="rounded-2xl overflow-hidden shadow-sm relative h-[450px] md:h-[550px] bg-blue-50/30">
+          <div class="rounded-2xl overflow-hidden shadow-sm relative h-[450px] md:h-[550px] bg-amber-50/40 border border-amber-100/50">
             <div class="absolute inset-0 z-0">
               <svg
                 :viewBox="`0 0 ${width} ${height}`"
@@ -173,8 +177,8 @@ onMounted(async () => {
                   v-for="(d, i) in countryPaths"
                   :key="i"
                   :d="d"
-                  fill="#e2e8f0"
-                  stroke="#ffffff"
+                  fill="#e6d8cc"
+                  stroke="#fffdf9"
                   stroke-width="0.5"
                   class="hover:fill-slate-300 transition-colors"
                 />
@@ -185,7 +189,7 @@ onMounted(async () => {
                   :y1="line.y1"
                   :x2="line.x2"
                   :y2="line.y2"
-                  stroke="#3b82f6"
+                  stroke="#0C3CA0"
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-dasharray="4 4"
@@ -196,8 +200,8 @@ onMounted(async () => {
                     :cx="m.x"
                     :cy="m.y"
                     :r="m.isHub ? 6 : 4"
-                    :fill="m.isHub ? '#ef4444' : '#3b82f6'"
-                    stroke="#fff"
+                    :fill="m.isHub ? '#f06d14' : '#0C3CA0'"
+                    stroke="#fffdf9"
                     stroke-width="2"
                   />
                   <text
@@ -206,7 +210,7 @@ onMounted(async () => {
                     text-anchor="middle"
                     :font-weight="m.isHub ? 'bold' : 'normal'"
                     font-size="12"
-                    fill="#1e293b"
+                    fill="#2a231f"
                     font-family="system-ui"
                   >
                     {{ m.name }}
@@ -215,18 +219,18 @@ onMounted(async () => {
               </svg>
             </div>
 
-            <div class="absolute top-6 left-6 z-10 bg-white/90 backdrop-blur-md px-6 py-4 rounded-xl shadow-lg flex flex-col w-[200px] md:w-[250px]">
+            <div class="absolute top-6 left-6 z-10 bg-white/90 backdrop-blur-md px-6 py-4 rounded-xl shadow-lg flex flex-col w-[200px] md:w-[250px] border border-amber-100/50">
               <div class="flex items-center mb-3">
                 <Navigation class="w-5 h-5 text-blue-600 mr-2" />
                 <span class="font-bold text-slate-900">{{ t(activeRoute.titleKey) }}</span>
               </div>
               <div class="space-y-2 text-xs text-slate-600">
                 <div class="flex items-center">
-                  <span class="w-3 h-3 rounded-full bg-red-500 border-2 border-white mr-2" />
+                  <span class="w-3 h-3 rounded-full bg-orange-500 border-2 border-white mr-2" />
                   <span>主要枢纽 (Hubs)</span>
                 </div>
                 <div class="flex items-center">
-                  <span class="w-3 h-3 rounded-full bg-blue-500 border-2 border-white mr-2" />
+                  <span class="w-3 h-3 rounded-full bg-blue-600 border-2 border-white mr-2" />
                   <span>核心节点 (Nodes)</span>
                 </div>
               </div>
@@ -235,7 +239,7 @@ onMounted(async () => {
         </div>
       </div>
 
-      <div class="bg-slate-50 rounded-2xl p-8 shadow-sm text-center">
+      <div class="bg-slate-50 rounded-2xl p-8 shadow-sm text-center border border-amber-100/40">
         <h3 class="text-xl font-bold text-slate-900 mb-3">{{ t('network.ext.title') }}</h3>
         <p class="text-slate-600 text-sm max-w-3xl mx-auto leading-relaxed">
           {{ t('network.ext.desc1') }}

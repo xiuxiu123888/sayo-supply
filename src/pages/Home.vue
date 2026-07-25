@@ -2,7 +2,6 @@
 import Hero from '../components/Hero.vue';
 import Stats from '../components/Stats.vue';
 import ServicesOverview from '../components/ServicesOverview.vue';
-import Network from '../components/Network.vue';
 import Cases from '../components/Cases.vue';
 import Contact from '../components/Contact.vue';
 </script>
@@ -11,7 +10,6 @@ import Contact from '../components/Contact.vue';
   <Hero />
   <Stats />
   <ServicesOverview />
-  <Network />
   <Cases />
   <Contact />
 </template>

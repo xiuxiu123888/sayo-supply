@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Anchor, Globe2, ShieldCheck, TrendingUp } from 'lucide-vue-next';
+import { Anchor, Globe2, ShieldCheck, TrendingUp, Boxes, Clock } from 'lucide-vue-next';
 import { useLanguage } from '../i18n';
 import aboutImage from '../assets/images/d281984a53eab7e08f31302e7e3c45341779d581cdb6f-2TNjih_fw658webp.webp';
 
@@ -18,12 +18,31 @@ const { t } = useLanguage();
         <div class="absolute inset-0 bg-gradient-to-r from-slate-50 via-slate-50/90 to-transparent" />
       </div>
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="max-w-2xl animate-fade-up">
+        <div class="animate-fade-up">
           <h1 class="text-4xl md:text-5xl font-bold mb-6 text-slate-900">{{ t('about.title') }}</h1>
           <div class="w-16 h-1.5 bg-blue-600 rounded-full mb-8" />
-          <p class="text-xl md:text-2xl text-slate-600 font-light leading-relaxed">
+          <p class="text-xl md:text-2xl text-slate-600 font-light leading-relaxed text-balance">
             {{ t('about.subtitle') }}
           </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 bg-white border-b border-slate-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-slate-50 rounded-2xl px-6 py-8">
+            <p class="text-xs font-bold text-blue-600 tracking-wider mb-3">{{ t('hero.mission.label') }}</p>
+            <p class="text-slate-800 leading-relaxed">{{ t('hero.mission') }}</p>
+          </div>
+          <div class="bg-slate-50 rounded-2xl px-6 py-8">
+            <p class="text-xs font-bold text-blue-600 tracking-wider mb-3">{{ t('hero.vision.label') }}</p>
+            <p class="text-slate-800 leading-relaxed">{{ t('hero.vision') }}</p>
+          </div>
+          <div class="bg-slate-50 rounded-2xl px-6 py-8">
+            <p class="text-xs font-bold text-amber-600 tracking-wider mb-3">{{ t('hero.values.label') }}</p>
+            <p class="text-slate-800 leading-relaxed">{{ t('hero.values') }}</p>
+          </div>
         </div>
       </div>
     </section>
@@ -32,7 +51,7 @@ const { t } = useLanguage();
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
-            <h2 class="text-3xl font-bold text-slate-800 mb-8">{{ t('hero.tagline') }}</h2>
+            <h2 class="text-3xl font-bold text-slate-800 mb-8">{{ t('about.story.title') }}</h2>
             <div class="space-y-6 text-slate-600 text-base md:text-lg leading-relaxed font-light">
               <p>{{ t('about.p1') }}</p>
               <p>{{ t('about.p2') }}</p>
@@ -56,6 +75,45 @@ const { t } = useLanguage();
             </div>
             <div class="absolute -bottom-8 -left-8 w-2/3 h-2/3 bg-slate-100 rounded-2xl z-0 hidden md:block" />
             <div class="absolute -top-8 -right-8 w-1/2 h-1/2 bg-blue-50 rounded-2xl z-0 hidden md:block" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl font-bold text-slate-800 mb-4">{{ t('about.reasons.title') }}</h2>
+          <div class="w-12 h-1 bg-blue-600 mx-auto rounded-full" />
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="bg-slate-50 rounded-2xl p-8">
+            <div class="flex items-center gap-3 mb-3">
+              <Boxes class="w-6 h-6 text-blue-600" />
+              <h3 class="text-xl font-bold text-slate-800">{{ t('about.r1.title') }}</h3>
+            </div>
+            <p class="text-slate-600 leading-relaxed">{{ t('about.r1.desc') }}</p>
+          </div>
+          <div class="bg-slate-50 rounded-2xl p-8">
+            <div class="flex items-center gap-3 mb-3">
+              <Globe2 class="w-6 h-6 text-blue-600" />
+              <h3 class="text-xl font-bold text-slate-800">{{ t('about.r2.title') }}</h3>
+            </div>
+            <p class="text-slate-600 leading-relaxed">{{ t('about.r2.desc') }}</p>
+          </div>
+          <div class="bg-slate-50 rounded-2xl p-8">
+            <div class="flex items-center gap-3 mb-3">
+              <Anchor class="w-6 h-6 text-orange-500" />
+              <h3 class="text-xl font-bold text-slate-800">{{ t('about.r3.title') }}</h3>
+            </div>
+            <p class="text-slate-600 leading-relaxed">{{ t('about.r3.desc') }}</p>
+          </div>
+          <div class="bg-slate-50 rounded-2xl p-8">
+            <div class="flex items-center gap-3 mb-3">
+              <Clock class="w-6 h-6 text-orange-500" />
+              <h3 class="text-xl font-bold text-slate-800">{{ t('about.r4.title') }}</h3>
+            </div>
+            <p class="text-slate-600 leading-relaxed">{{ t('about.r4.desc') }}</p>
           </div>
         </div>
       </div>
@@ -106,6 +164,18 @@ const { t } = useLanguage();
           </div>
 
           <div class="flex gap-6">
+            <div class="shrink-0">
+              <div class="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center text-amber-600">
+                <Clock class="w-8 h-8" />
+              </div>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-slate-800 mb-3">{{ t('whyus.p4.title') }}</h3>
+              <p class="text-slate-600 leading-relaxed">{{ t('whyus.p4.desc') }}</p>
+            </div>
+          </div>
+
+          <div class="flex gap-6 md:col-span-2 md:max-w-xl md:mx-auto">
             <div class="shrink-0">
               <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600">
                 <TrendingUp class="w-8 h-8" />

@@ -11,7 +11,7 @@ const { t } = useLanguage();
       <div class="text-center mb-16">
         <h2 class="text-3xl font-bold text-slate-900 mb-4">{{ t('services.title') }}</h2>
         <div class="w-12 h-1 bg-blue-600 mx-auto rounded-full mb-6" />
-        <p class="text-slate-600 max-w-2xl mx-auto text-sm leading-relaxed">
+        <p class="text-slate-600 max-w-4xl mx-auto text-sm leading-relaxed text-balance">
           {{ t('services.desc') }}
         </p>
       </div>
@@ -32,7 +32,7 @@ const { t } = useLanguage();
             <h3 class="text-2xl font-bold text-slate-900">{{ t('services.tab.rail') }}</h3>
           </div>
           <p class="text-slate-600 text-sm leading-relaxed mb-8 flex-1">
-            {{ t('services.rail1.adv') }} {{ t('services.rail2.adv') }}
+            {{ t('services.rail.intro') }}
           </p>
         </div>
 
@@ -51,7 +51,7 @@ const { t } = useLanguage();
             <h3 class="text-2xl font-bold text-slate-900">{{ t('services.tab.truck') }}</h3>
           </div>
           <p class="text-slate-600 text-sm leading-relaxed mb-8 flex-1">
-            {{ t('services.truck1.adv') }} {{ t('services.truck2.adv') }}
+            {{ t('services.truck.intro') }}
           </p>
         </div>
       </div>

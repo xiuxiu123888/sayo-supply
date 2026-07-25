@@ -21,6 +21,7 @@ const navLinks = computed(() => [
   { name: t('nav.home'), href: '/' },
   { name: t('nav.about'), href: '/about' },
   { name: t('nav.services'), href: '/services' },
+  { name: t('nav.network'), href: '/network' },
 ]);
 
 const consultHref = computed(() => (route.path === '/' ? '#contact' : '/#contact'));
@@ -31,7 +32,7 @@ const toggleLang = () => setLang(lang.value === 'zh' ? 'en' : 'zh');
 <template>
   <header class="fixed w-full z-50 transition-all duration-300">
     <div
-      class="bg-slate-900 text-slate-300 text-xs transition-all duration-300 overflow-hidden"
+      class="bg-[#2a231f] text-amber-100/80 text-xs transition-all duration-300 overflow-hidden"
       :class="isScrolled ? 'h-0 py-0 opacity-0' : 'h-8 py-2 opacity-100'"
     >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-full">
@@ -45,7 +46,7 @@ const toggleLang = () => setLang(lang.value === 'zh' ? 'en' : 'zh');
             400-888-8888
           </a>
         </div>
-        <div class="hidden sm:block text-slate-400">
+        <div class="hidden sm:block text-amber-200/70">
           {{ t('hero.tagline') }}
         </div>
       </div>
@@ -53,7 +54,7 @@ const toggleLang = () => setLang(lang.value === 'zh' ? 'en' : 'zh');
 
     <nav
       class="w-full transition-all duration-300"
-      :class="isScrolled ? 'bg-white shadow-sm py-3' : 'bg-white/90 backdrop-blur-md py-4'"
+      :class="isScrolled ? 'bg-[#fffdf9]/90 shadow-sm shadow-amber-900/5 py-3 backdrop-blur-md' : 'bg-[#fffdf9]/80 backdrop-blur-md py-4'"
     >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center">
@@ -83,7 +84,7 @@ const toggleLang = () => setLang(lang.value === 'zh' ? 'en' : 'zh');
             </button>
             <a
               :href="consultHref"
-              class="bg-slate-900 hover:bg-slate-800 text-white px-5 py-2 rounded-full text-sm font-semibold transition-colors"
+              class="bg-blue-700 hover:bg-blue-800 text-white px-5 py-2 rounded-full text-sm font-semibold transition-colors shadow-sm shadow-blue-700/20"
             >
               {{ t('nav.consult') }}
             </a>
@@ -135,7 +136,7 @@ const toggleLang = () => setLang(lang.value === 'zh' ? 'en' : 'zh');
           </button>
           <a
             :href="consultHref"
-            class="block px-3 py-2 mt-4 text-base font-medium text-center text-white bg-slate-900 rounded-md hover:bg-slate-800"
+            class="block px-3 py-2 mt-4 text-base font-medium text-center text-white bg-blue-700 rounded-md hover:bg-blue-800"
             @click="isMobileMenuOpen = false"
           >
             {{ t('nav.consult') }}

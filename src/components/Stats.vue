@@ -5,7 +5,7 @@ const { t } = useLanguage();
 </script>
 
 <template>
-  <div class="bg-white px-4 sm:px-6 lg:px-8 py-8 z-20 relative shadow-sm">
+  <div class="bg-white/90 px-4 sm:px-6 lg:px-8 py-8 z-20 relative shadow-sm shadow-amber-900/5 border-y border-amber-100/50">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
       <div class="flex items-center gap-8 md:gap-16 w-full md:w-auto overflow-x-auto pb-4 md:pb-0 scrollbar-hide">
         <div class="flex flex-col min-w-max">

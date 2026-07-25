@@ -7,7 +7,7 @@ const year = new Date().getFullYear();
 </script>
 
 <template>
-  <footer class="bg-white text-slate-500 py-12">
+  <footer class="bg-white/90 text-slate-500 py-12 border-t border-amber-100/60">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
         <div>
@@ -26,6 +26,7 @@ const year = new Date().getFullYear();
               <RouterLink to="/" class="hover:text-blue-600 transition-colors">{{ t('nav.home') }}</RouterLink>
               <RouterLink to="/about" class="hover:text-blue-600 transition-colors">{{ t('nav.about') }}</RouterLink>
               <RouterLink to="/services" class="hover:text-blue-600 transition-colors">{{ t('nav.services') }}</RouterLink>
+              <RouterLink to="/network" class="hover:text-blue-600 transition-colors">{{ t('nav.network') }}</RouterLink>
             </div>
           </div>
         </div>
