@@ -65,7 +65,7 @@ const locationGroups = computed(() => [
           <div
             v-for="group in locationGroups"
             :key="group.title"
-            class="bg-white rounded-2xl p-8 shadow-sm border border-amber-100/40"
+            class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100"
           >
             <div class="flex items-center gap-3 mb-4">
               <div class="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
@@ -82,7 +82,7 @@ const locationGroups = computed(() => [
                 :key="loc"
                 class="text-slate-600 text-sm leading-relaxed flex items-start gap-2"
               >
-                <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0" />
+                <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-600 shrink-0" />
                 {{ loc }}
               </li>
             </ul>

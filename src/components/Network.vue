@@ -156,7 +156,7 @@ onMounted(async () => {
             :class="
               route.id === activeRouteId
                 ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20 font-bold'
-                : 'bg-slate-50 text-slate-700 hover:bg-amber-50 hover:text-blue-600 font-medium'
+                : 'bg-slate-50 text-slate-700 hover:bg-slate-100 hover:text-blue-600 font-medium'
             "
             @click="activeRouteId = route.id"
           >
@@ -166,7 +166,7 @@ onMounted(async () => {
         </div>
 
         <div class="w-full lg:w-3/4">
-          <div class="rounded-2xl overflow-hidden shadow-sm relative h-[450px] md:h-[550px] bg-amber-50/40 border border-amber-100/50">
+          <div class="rounded-2xl overflow-hidden shadow-sm relative h-[450px] md:h-[550px] bg-slate-50 border border-slate-100">
             <div class="absolute inset-0 z-0">
               <svg
                 :viewBox="`0 0 ${width} ${height}`"
@@ -177,8 +177,8 @@ onMounted(async () => {
                   v-for="(d, i) in countryPaths"
                   :key="i"
                   :d="d"
-                  fill="#e6d8cc"
-                  stroke="#fffdf9"
+                  fill="#e2e8f0"
+                  stroke="#ffffff"
                   stroke-width="0.5"
                   class="hover:fill-slate-300 transition-colors"
                 />
@@ -201,7 +201,7 @@ onMounted(async () => {
                     :cy="m.y"
                     :r="m.isHub ? 6 : 4"
                     :fill="m.isHub ? '#f06d14' : '#0C3CA0'"
-                    stroke="#fffdf9"
+                    stroke="#ffffff"
                     stroke-width="2"
                   />
                   <text
@@ -210,7 +210,7 @@ onMounted(async () => {
                     text-anchor="middle"
                     :font-weight="m.isHub ? 'bold' : 'normal'"
                     font-size="12"
-                    fill="#2a231f"
+                    fill="#0f172a"
                     font-family="system-ui"
                   >
                     {{ m.name }}
@@ -219,7 +219,7 @@ onMounted(async () => {
               </svg>
             </div>
 
-            <div class="absolute top-6 left-6 z-10 bg-white/90 backdrop-blur-md px-6 py-4 rounded-xl shadow-lg flex flex-col w-[200px] md:w-[250px] border border-amber-100/50">
+            <div class="absolute top-6 left-6 z-10 bg-white/90 backdrop-blur-md px-6 py-4 rounded-xl shadow-lg flex flex-col w-[200px] md:w-[250px] border border-slate-100">
               <div class="flex items-center mb-3">
                 <Navigation class="w-5 h-5 text-blue-600 mr-2" />
                 <span class="font-bold text-slate-900">{{ t(activeRoute.titleKey) }}</span>
@@ -239,7 +239,7 @@ onMounted(async () => {
         </div>
       </div>
 
-      <div class="bg-slate-50 rounded-2xl p-8 shadow-sm text-center border border-amber-100/40">
+      <div class="bg-slate-50 rounded-2xl p-8 shadow-sm text-center border border-slate-100">
         <h3 class="text-xl font-bold text-slate-900 mb-3">{{ t('network.ext.title') }}</h3>
         <p class="text-slate-600 text-sm max-w-3xl mx-auto leading-relaxed">
           {{ t('network.ext.desc1') }}
