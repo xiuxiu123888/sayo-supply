@@ -2,24 +2,25 @@
 import { Anchor, Globe2, ShieldCheck, TrendingUp, Boxes, Clock } from 'lucide-vue-next';
 import { useLanguage } from '../i18n';
 import aboutImage from '../assets/images/d281984a53eab7e08f31302e7e3c45341779d581cdb6f-2TNjih_fw658webp.webp';
+import yardBg from '../assets/images/f31e33dde77a92d0c0b88e937e1f229dab52a52c351e2-52DxCA_fw658webp.webp';
 
 const { t } = useLanguage();
 </script>
 
 <template>
   <div class="pt-32 bg-white min-h-screen">
-    <section class="py-8 bg-slate-50 text-slate-900 relative overflow-hidden">
+    <section class="py-16 md:py-20 text-slate-900 relative overflow-hidden">
       <div class="absolute inset-0">
         <img
-          src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=2000&q=80"
-          alt="About Us Background"
-          class="w-full h-full object-cover opacity-10 mix-blend-multiply"
+          :src="yardBg"
+          alt="集装箱堆场"
+          class="w-full h-full object-cover object-center"
         />
-        <div class="absolute inset-0 bg-gradient-to-r from-slate-50 via-slate-50/90 to-transparent" />
+        <div class="absolute inset-0 bg-gradient-to-r from-white via-white/88 to-white/55" />
       </div>
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="animate-fade-up">
-          <h1 class="text-4xl md:text-5xl font-bold mb-6 text-slate-900">{{ t('about.title') }}</h1>
+          <h1 class="text-[38px] font-bold mb-6 text-slate-900">{{ t('about.title') }}</h1>
           <div class="w-16 h-1.5 bg-blue-600 rounded-full mb-8" />
           <p class="text-xl md:text-2xl text-slate-600 font-light leading-relaxed text-balance">
             {{ t('about.subtitle') }}
@@ -32,22 +33,22 @@ const { t } = useLanguage();
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div class="bg-slate-50 rounded-2xl px-6 py-8">
-            <p class="text-xs font-bold text-blue-600 tracking-wider mb-3">{{ t('hero.mission.label') }}</p>
+            <p class="text-sm font-bold text-blue-600 tracking-wider mb-3">{{ t('hero.mission.label') }}</p>
             <p class="text-slate-800 leading-relaxed">{{ t('hero.mission') }}</p>
           </div>
           <div class="bg-slate-50 rounded-2xl px-6 py-8">
-            <p class="text-xs font-bold text-blue-600 tracking-wider mb-3">{{ t('hero.vision.label') }}</p>
+            <p class="text-sm font-bold text-blue-600 tracking-wider mb-3">{{ t('hero.vision.label') }}</p>
             <p class="text-slate-800 leading-relaxed">{{ t('hero.vision') }}</p>
           </div>
           <div class="bg-slate-50 rounded-2xl px-6 py-8">
-            <p class="text-xs font-bold text-amber-600 tracking-wider mb-3">{{ t('hero.values.label') }}</p>
+            <p class="text-sm font-bold text-amber-600 tracking-wider mb-3">{{ t('hero.values.label') }}</p>
             <p class="text-slate-800 leading-relaxed">{{ t('hero.values') }}</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="py-20 md:py-32">
+    <section class="py-8">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>

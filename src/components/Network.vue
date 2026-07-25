@@ -3,245 +3,362 @@ import { computed, onMounted, ref } from 'vue';
 import { geoMercator, geoPath } from 'd3-geo';
 import { feature } from 'topojson-client';
 import type { Topology } from 'topojson-specification';
-import type { FeatureCollection, Geometry } from 'geojson';
-import { Navigation, MapPin } from 'lucide-vue-next';
+import type { Geometry } from 'geojson';
+import { Clock } from 'lucide-vue-next';
 import { useLanguage } from '../i18n';
 
 defineProps<{
   hideHeader?: boolean;
 }>();
 
-const geoUrl = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json';
-
+/** All network nodes from doc coverage */
 const allMarkers: Record<string, [number, number]> = {
-  成都: [104.0668, 30.5728],
-  重庆: [106.5516, 29.563],
-  西安: [108.9398, 34.3416],
-  深圳: [114.0579, 22.5431],
-  乌鲁木齐: [87.6168, 43.8256],
-  华沙: [21.0122, 52.2297],
-  汉堡: [9.9937, 53.5511],
-  杜伊斯堡: [6.7623, 51.4344],
-  布达佩斯: [19.0402, 47.4979],
-  伦敦: [-0.1278, 51.5074],
-  马拉舍维奇: [23.5333, 52.0833],
-  莫斯科: [37.6173, 55.7558],
-  明斯克: [27.5615, 53.9045],
-  阿拉木图: [76.9286, 43.222],
-  塔什干: [69.2401, 41.2995],
-  波季: [41.6738, 42.1462],
-  第比利斯: [44.8271, 41.7151],
+  成都: [104.07, 30.57],
+  重庆: [106.55, 29.56],
+  西安: [108.94, 34.34],
+  深圳: [114.06, 22.54],
+  乌鲁木齐: [87.62, 43.83],
+  华沙: [21.01, 52.23],
+  汉堡: [9.99, 53.55],
+  杜伊斯堡: [6.76, 51.43],
+  布达佩斯: [19.04, 47.5],
+  伦敦: [-0.13, 51.51],
+  马拉舍维奇: [23.52, 52.16],
+  莫斯科: [37.62, 55.76],
+  明斯克: [27.56, 53.9],
+  阿拉木图: [76.93, 43.22],
+  塔什干: [69.24, 41.3],
+  波季: [41.67, 42.15],
+  第比利斯: [44.83, 41.72],
 };
-
-const routes = [
-  {
-    id: 'overview',
-    titleKey: 'network.map.title',
-    lines: [
-      { from: allMarkers['西安'], to: allMarkers['汉堡'] },
-      { from: allMarkers['成都'], to: allMarkers['华沙'] },
-      { from: allMarkers['重庆'], to: allMarkers['杜伊斯堡'] },
-      { from: allMarkers['深圳'], to: allMarkers['伦敦'] },
-      { from: allMarkers['成都'], to: allMarkers['莫斯科'] },
-      { from: allMarkers['乌鲁木齐'], to: allMarkers['阿拉木图'] },
-      { from: allMarkers['西安'], to: allMarkers['第比利斯'] },
-    ],
-    markers: Object.keys(allMarkers),
-  },
-  {
-    id: 'europe',
-    titleKey: 'network.r2.title',
-    lines: [
-      { from: allMarkers['西安'], to: allMarkers['汉堡'] },
-      { from: allMarkers['成都'], to: allMarkers['华沙'] },
-      { from: allMarkers['重庆'], to: allMarkers['杜伊斯堡'] },
-      { from: allMarkers['西安'], to: allMarkers['布达佩斯'] },
-      { from: allMarkers['深圳'], to: allMarkers['伦敦'] },
-      { from: allMarkers['成都'], to: allMarkers['马拉舍维奇'] },
-    ],
-    markers: ['西安', '成都', '重庆', '深圳', '汉堡', '华沙', '杜伊斯堡', '布达佩斯', '伦敦', '马拉舍维奇'],
-  },
-  {
-    id: 'cis',
-    titleKey: 'network.r3.title',
-    lines: [
-      { from: allMarkers['成都'], to: allMarkers['莫斯科'] },
-      { from: allMarkers['西安'], to: allMarkers['莫斯科'] },
-      { from: allMarkers['西安'], to: allMarkers['明斯克'] },
-    ],
-    markers: ['成都', '西安', '莫斯科', '明斯克'],
-  },
-  {
-    id: 'central_asia',
-    titleKey: 'network.r4.title',
-    lines: [
-      { from: allMarkers['乌鲁木齐'], to: allMarkers['阿拉木图'] },
-      { from: allMarkers['乌鲁木齐'], to: allMarkers['塔什干'] },
-      { from: allMarkers['西安'], to: allMarkers['阿拉木图'] },
-      { from: allMarkers['成都'], to: allMarkers['波季'] },
-      { from: allMarkers['西安'], to: allMarkers['第比利斯'] },
-    ],
-    markers: ['乌鲁木齐', '西安', '成都', '阿拉木图', '塔什干', '波季', '第比利斯'],
-  },
-];
 
 const hubs = new Set(['成都', '重庆', '西安', '深圳', '乌鲁木齐']);
 
+const branchColors = ['#FFB901', '#4667ca', '#7b94dd', '#e6a700', '#254db5'];
+
+const routeList = [
+  {
+    id: 'xa_hamburg',
+    from: '西安',
+    to: '汉堡',
+    via: ['乌鲁木齐', '阿拉木图', '莫斯科', '明斯克', '马拉舍维奇'] as string[],
+    descKey: 'network.route.xa_hamburg.desc',
+    timeKey: 'network.route.xa_hamburg.time',
+  },
+  {
+    id: 'cd_warsaw',
+    from: '成都',
+    to: '华沙',
+    via: ['乌鲁木齐', '莫斯科', '明斯克'] as string[],
+    descKey: 'network.route.cd_warsaw.desc',
+    timeKey: 'network.route.cd_warsaw.time',
+  },
+  {
+    id: 'cq_duisburg',
+    from: '重庆',
+    to: '杜伊斯堡',
+    via: ['乌鲁木齐', '莫斯科', '华沙'] as string[],
+    descKey: 'network.route.cq_duisburg.desc',
+    timeKey: 'network.route.cq_duisburg.time',
+  },
+  {
+    id: 'cd_moscow',
+    from: '成都',
+    to: '莫斯科',
+    via: ['乌鲁木齐'] as string[],
+    descKey: 'network.route.cd_moscow.desc',
+    timeKey: 'network.route.cd_moscow.time',
+  },
+  {
+    id: 'ur_almaty',
+    from: '乌鲁木齐',
+    to: '阿拉木图',
+    via: [] as string[],
+    descKey: 'network.route.ur_almaty.desc',
+    timeKey: 'network.route.ur_almaty.time',
+  },
+  {
+    id: 'xa_tashkent',
+    from: '西安',
+    to: '塔什干',
+    via: ['乌鲁木齐'] as string[],
+    descKey: 'network.route.xa_tashkent.desc',
+    timeKey: 'network.route.xa_tashkent.time',
+  },
+] as const;
+
+const geoUrl = 'https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json';
+
 const { t } = useLanguage();
-const activeRouteId = ref('overview');
-const countryPaths = ref<string[]>([]);
+const activeRouteId = ref<(typeof routeList)[number]['id']>('xa_hamburg');
+const landPath = ref('');
 
 const width = 1000;
-const height = 600;
-const projection = geoMercator().scale(400).center([60, 45]).translate([width / 2, height / 2]);
+const height = 520;
+
+const projection = geoMercator()
+  .center([62, 44])
+  .scale(300)
+  .translate([width / 2, height / 2 + 10]);
+
 const pathGen = geoPath(projection);
 
-const activeRoute = computed(() => routes.find((r) => r.id === activeRouteId.value) || routes[0]);
+const activeRoute = computed(() => routeList.find((r) => r.id === activeRouteId.value) || routeList[0]);
 
-const projectedLines = computed(() =>
-  activeRoute.value.lines
-    .map((line) => {
-      const from = projection(line.from);
-      const to = projection(line.to);
-      if (!from || !to) return null;
-      return { x1: from[0], y1: from[1], x2: to[0], y2: to[1] };
-    })
-    .filter(Boolean) as { x1: number; y1: number; x2: number; y2: number }[],
+const routeTitle = computed(
+  () => `${t('network.route.prefix')}（${activeRoute.value.from} ~ ${activeRoute.value.to}）`,
 );
 
-const projectedMarkers = computed(() =>
-  activeRoute.value.markers
+function project(name: string) {
+  const coords = allMarkers[name];
+  if (!coords) return null;
+  const p = projection(coords);
+  if (!p) return null;
+  return { x: p[0], y: p[1] };
+}
+
+function linePath(points: string[]) {
+  const projected = points.map(project).filter(Boolean) as { x: number; y: number }[];
+  if (projected.length < 2) return '';
+  let d = `M ${projected[0].x} ${projected[0].y}`;
+  for (let i = 1; i < projected.length; i++) {
+    const a = projected[i - 1];
+    const b = projected[i];
+    const mx = (a.x + b.x) / 2;
+    const my = (a.y + b.y) / 2 - Math.min(40, Math.abs(a.x - b.x) * 0.06);
+    d += ` Q ${mx} ${my} ${b.x} ${b.y}`;
+  }
+  return d;
+}
+
+const activeLine = computed(() => {
+  const r = activeRoute.value;
+  return linePath([r.from, ...r.via, r.to]);
+});
+
+/** Other routes as thinner branch lines */
+const branchLines = computed(() =>
+  routeList
+    .filter((r) => r.id !== activeRouteId.value)
+    .map((r, i) => ({
+      key: r.id,
+      d: linePath([r.from, ...r.via, r.to]),
+      color: branchColors[i % branchColors.length],
+    }))
+    .filter((l) => l.d),
+);
+
+const visibleMarkers = computed(() => {
+  const r = activeRoute.value;
+  const names = new Set([r.from, r.to, ...r.via, '深圳', '布达佩斯', '伦敦', '波季', '第比利斯']);
+  // Always show domestic hubs lightly
+  hubs.forEach((h) => names.add(h));
+  return [...names]
     .map((name) => {
-      const coords = projection(allMarkers[name]);
-      if (!coords) return null;
-      return { name, x: coords[0], y: coords[1], isHub: hubs.has(name) };
+      const p = project(name);
+      if (!p) return null;
+      const isEndpoint = name === r.from || name === r.to;
+      return {
+        name,
+        ...p,
+        isHub: hubs.has(name),
+        isEndpoint,
+      };
     })
-    .filter(Boolean) as { name: string; x: number; y: number; isHub: boolean }[],
-);
+    .filter(Boolean) as {
+    name: string;
+    x: number;
+    y: number;
+    isHub: boolean;
+    isEndpoint: boolean;
+  }[];
+});
+
+const timeRows = computed(() => {
+  const active = activeRoute.value;
+  const extras = routeList.filter((r) => r.id !== active.id).slice(0, 2);
+  return [active, ...extras].map((r) => ({
+    id: r.id,
+    label: `${r.from}-${r.to}`,
+    time: t(r.timeKey),
+    active: r.id === active.id,
+  }));
+});
 
 onMounted(async () => {
   try {
     const res = await fetch(geoUrl);
     const topology = (await res.json()) as Topology;
-    const countries = feature(
-      topology,
-      (topology.objects as any).countries,
-    ) as unknown as FeatureCollection<Geometry>;
-    countryPaths.value = countries.features
-      .map((f) => pathGen(f) || '')
-      .filter(Boolean);
+    const land = feature(topology, (topology.objects as any).land) as unknown as Geometry;
+    landPath.value = pathGen(land as any) || '';
   } catch (err) {
-    console.error('Failed to load world map', err);
+    console.error('Failed to load map land', err);
   }
 });
 </script>
 
 <template>
-  <section id="network" class="py-16 md:py-20 bg-white">
+  <section id="network" class="py-12 md:py-16 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div v-if="!hideHeader" class="text-center mb-12">
+      <div v-if="!hideHeader" class="text-center mb-10">
         <h2 class="text-3xl font-bold text-slate-900 mb-4">{{ t('network.title') }}</h2>
         <div class="w-12 h-1 bg-blue-600 mx-auto rounded-full mb-6" />
-        <p class="text-slate-600 max-w-2xl mx-auto text-sm leading-relaxed">
+        <p class="text-slate-600 max-w-4xl mx-auto text-sm leading-relaxed text-balance">
           {{ t('network.desc') }}
         </p>
       </div>
 
-      <div class="flex flex-col lg:flex-row gap-8 mb-16">
-        <div class="w-full lg:w-1/4 flex flex-col gap-3">
-          <button
-            v-for="route in routes"
-            :key="route.id"
-            class="text-left px-5 py-4 rounded-xl transition-all duration-300 flex items-center justify-between"
-            :class="
-              route.id === activeRouteId
-                ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20 font-bold'
-                : 'bg-slate-50 text-slate-700 hover:bg-slate-100 hover:text-blue-600 font-medium'
-            "
-            @click="activeRouteId = route.id"
-          >
-            <span>{{ t(route.titleKey) }}</span>
-            <MapPin v-if="route.id === activeRouteId" class="w-4 h-4" />
-          </button>
-        </div>
+      <!-- Route tabs -->
+      <div class="flex flex-wrap gap-2 mb-8">
+        <button
+          v-for="route in routeList"
+          :key="route.id"
+          class="px-4 py-2 rounded-full text-sm font-semibold transition-colors"
+          :class="
+            route.id === activeRouteId
+              ? 'bg-blue-600 text-white'
+              : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+          "
+          @click="activeRouteId = route.id"
+        >
+          {{ route.from }} ~ {{ route.to }}
+        </button>
+      </div>
 
-        <div class="w-full lg:w-3/4">
-          <div class="rounded-2xl overflow-hidden shadow-sm relative h-[450px] md:h-[550px] bg-slate-50 border border-slate-100">
-            <div class="absolute inset-0 z-0">
-              <svg
-                :viewBox="`0 0 ${width} ${height}`"
-                class="w-full h-full"
-                preserveAspectRatio="xMidYMid meet"
+      <!-- Title + description (reference layout) -->
+      <div class="mb-6 max-w-4xl">
+        <h3 class="text-2xl md:text-[28px] font-bold text-blue-700 mb-3">
+          {{ routeTitle }}
+        </h3>
+        <p class="text-sm text-slate-600 leading-relaxed">
+          {{ t(activeRoute.descKey) }}
+        </p>
+      </div>
+
+      <!-- Map -->
+      <div class="relative bg-white rounded-xl overflow-hidden border border-slate-100">
+        <svg
+          :viewBox="`0 0 ${width} ${height}`"
+          class="w-full h-[340px] md:h-[480px]"
+          preserveAspectRatio="xMidYMid meet"
+        >
+          <rect width="100%" height="100%" fill="#ffffff" />
+
+          <path
+            v-if="landPath"
+            :d="landPath"
+            fill="#e8edf2"
+            stroke="none"
+          />
+
+          <!-- Branch routes -->
+          <path
+            v-for="line in branchLines"
+            :key="line.key"
+            :d="line.d"
+            fill="none"
+            :stroke="line.color"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            opacity="0.55"
+          />
+
+          <!-- Active main route -->
+          <path
+            v-if="activeLine"
+            :d="activeLine"
+            fill="none"
+            stroke="#0C3CA0"
+            stroke-width="3.2"
+            stroke-linecap="round"
+            opacity="0.95"
+          />
+
+          <!-- Nodes -->
+          <g v-for="m in visibleMarkers" :key="`${activeRouteId}-${m.name}`">
+            <!-- Soft halo for visibility -->
+            <circle
+              :cx="m.x"
+              :cy="m.y"
+              :r="m.isEndpoint ? 16 : m.isHub ? 12 : 9"
+              :fill="m.isEndpoint ? '#0C3CA0' : m.isHub ? '#FFB901' : '#0C3CA0'"
+              opacity="0.18"
+            />
+            <circle
+              :cx="m.x"
+              :cy="m.y"
+              :r="m.isEndpoint ? 8 : m.isHub ? 6.5 : 5"
+              :fill="m.isEndpoint || m.isHub ? '#FFB901' : '#0C3CA0'"
+              stroke="#ffffff"
+              :stroke-width="m.isEndpoint ? 3 : 2.5"
+            />
+
+            <!-- Endpoint callout label -->
+            <g v-if="m.isEndpoint">
+              <rect
+                :x="m.x - 42"
+                :y="m.y - 44"
+                width="84"
+                height="26"
+                rx="3"
+                fill="#0C3CA0"
+              />
+              <polygon
+                :points="`${m.x - 6},${m.y - 18} ${m.x + 6},${m.y - 18} ${m.x},${m.y - 10}`"
+                fill="#0C3CA0"
+              />
+              <text
+                :x="m.x"
+                :y="m.y - 26"
+                text-anchor="middle"
+                font-size="13"
+                font-weight="700"
+                fill="#ffffff"
+                font-family="system-ui, sans-serif"
               >
-                <path
-                  v-for="(d, i) in countryPaths"
-                  :key="i"
-                  :d="d"
-                  fill="#e2e8f0"
-                  stroke="#ffffff"
-                  stroke-width="0.5"
-                  class="hover:fill-slate-300 transition-colors"
-                />
-                <line
-                  v-for="(line, i) in projectedLines"
-                  :key="`line-${activeRouteId}-${i}`"
-                  :x1="line.x1"
-                  :y1="line.y1"
-                  :x2="line.x2"
-                  :y2="line.y2"
-                  stroke="#0C3CA0"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-dasharray="4 4"
-                  class="map-dash"
-                />
-                <g v-for="m in projectedMarkers" :key="`${activeRouteId}-${m.name}`">
-                  <circle
-                    :cx="m.x"
-                    :cy="m.y"
-                    :r="m.isHub ? 6 : 4"
-                    :fill="m.isHub ? '#f06d14' : '#0C3CA0'"
-                    stroke="#ffffff"
-                    stroke-width="2"
-                  />
-                  <text
-                    :x="m.x"
-                    :y="m.y - 10"
-                    text-anchor="middle"
-                    :font-weight="m.isHub ? 'bold' : 'normal'"
-                    font-size="12"
-                    fill="#0f172a"
-                    font-family="system-ui"
-                  >
-                    {{ m.name }}
-                  </text>
-                </g>
-              </svg>
-            </div>
+                {{ m.name }}
+              </text>
+            </g>
 
-            <div class="absolute top-6 left-6 z-10 bg-white/90 backdrop-blur-md px-6 py-4 rounded-xl shadow-lg flex flex-col w-[200px] md:w-[250px] border border-slate-100">
-              <div class="flex items-center mb-3">
-                <Navigation class="w-5 h-5 text-blue-600 mr-2" />
-                <span class="font-bold text-slate-900">{{ t(activeRoute.titleKey) }}</span>
-              </div>
-              <div class="space-y-2 text-xs text-slate-600">
-                <div class="flex items-center">
-                  <span class="w-3 h-3 rounded-full bg-orange-500 border-2 border-white mr-2" />
-                  <span>主要枢纽 (Hubs)</span>
-                </div>
-                <div class="flex items-center">
-                  <span class="w-3 h-3 rounded-full bg-blue-600 border-2 border-white mr-2" />
-                  <span>核心节点 (Nodes)</span>
-                </div>
-              </div>
-            </div>
+            <!-- Secondary labels -->
+            <text
+              v-else
+              :x="m.x"
+              :y="m.y - 12"
+              text-anchor="middle"
+              font-size="12"
+              font-weight="700"
+              fill="#0f172a"
+              font-family="system-ui, sans-serif"
+              style="paint-order: stroke; stroke: #ffffff; stroke-width: 4px"
+            >
+              {{ m.name }}
+            </text>
+          </g>
+        </svg>
+
+        <!-- Transit time card -->
+        <div class="absolute bottom-4 right-4 w-[220px] md:w-[240px] shadow-md overflow-hidden rounded-sm border border-blue-700/30 bg-white z-10">
+          <div class="bg-blue-700 text-white px-3 py-2 flex items-center gap-2 text-sm font-bold">
+            <Clock class="w-4 h-4" />
+            {{ t('network.time.title') }}
           </div>
+          <ul class="px-3 py-2 space-y-1.5">
+            <li
+              v-for="row in timeRows"
+              :key="row.id"
+              class="text-sm leading-snug"
+              :class="row.active ? 'text-blue-700 font-semibold' : 'text-slate-600'"
+            >
+              {{ row.label }} ({{ row.time }})
+            </li>
+          </ul>
         </div>
       </div>
 
-      <div class="bg-slate-50 rounded-2xl p-8 shadow-sm text-center border border-slate-100">
+      <div class="mt-12 bg-slate-50 rounded-2xl p-8 text-center">
         <h3 class="text-xl font-bold text-slate-900 mb-3">{{ t('network.ext.title') }}</h3>
-        <p class="text-slate-600 text-sm max-w-3xl mx-auto leading-relaxed">
+        <p class="text-slate-600 text-sm max-w-3xl mx-auto leading-relaxed text-balance">
           {{ t('network.ext.desc1') }}
           <span class="font-bold text-blue-600">{{ t('network.ext.hl1') }}</span>
           {{ t('network.ext.desc2') }}
@@ -254,9 +371,3 @@ onMounted(async () => {
     </div>
   </section>
 </template>
-
-<style scoped>
-.map-dash {
-  animation: dash 20s linear infinite;
-}
-</style>

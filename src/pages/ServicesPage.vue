@@ -4,6 +4,7 @@ import { TrainFront, Truck, Package, LayoutGrid, Check, Search, MapPin, Info, Ar
 import { useLanguage } from '../i18n';
 import railFclImage from '../assets/images/f31e33dde77a92d0c0b88e937e1f229dab52a52c351e2-52DxCA_fw658webp.webp';
 import truckFtlImage from '../assets/images/19b73930259411eca5b4d6b93b7440242b9ebd69361be-lpGwuq_fw658webp.webp';
+import yardBg from '../assets/images/d281984a53eab7e08f31302e7e3c45341779d581cdb6f-2TNjih_fw658webp.webp';
 
 const { t, lang } = useLanguage();
 const queryFrom = ref('西安');
@@ -52,72 +53,33 @@ const handleQuery = () => {
   };
 };
 
-const services = computed(() => [
-  {
-    id: 'rail-lcl',
-    category: t('services.tab.rail'),
-    type: t('services.rail1.type'),
-    icon: 'package',
-    image: 'https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=1200&q=80',
-    advantages: t('services.rail1.adv'),
-    routes: [
-      { name: t('services.rail1.r1.name'), desc: t('services.rail1.r1.desc') },
-      { name: t('services.rail1.r2.name'), desc: t('services.rail1.r2.desc') },
-    ],
-    color: 'blue',
-  },
-  {
-    id: 'rail-fcl',
-    category: t('services.tab.rail'),
-    type: t('services.rail2.type'),
-    icon: 'layout',
-    image: railFclImage,
-    advantages: t('services.rail2.adv'),
-    routes: [
-      { name: t('services.rail2.r1.name'), desc: t('services.rail2.r1.desc') },
-      { name: t('services.rail2.r2.name'), desc: t('services.rail2.r2.desc') },
-      { name: t('services.rail2.r3.name'), desc: t('services.rail2.r3.desc') },
-      { name: t('services.rail2.r4.name'), desc: t('services.rail2.r4.desc') },
-    ],
-    color: 'blue',
-  },
-  {
-    id: 'truck-ltl',
-    category: t('services.tab.truck'),
-    type: t('services.truck1.type'),
-    icon: 'package',
-    image: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1200&q=80',
-    advantages: t('services.truck1.adv'),
-    routes: [{ name: t('services.truck1.r1.name'), desc: t('services.truck1.r1.desc') }],
-    color: 'orange',
-  },
-  {
-    id: 'truck-ftl',
-    category: t('services.tab.truck'),
-    type: t('services.truck2.type'),
-    icon: 'truck',
-    image: truckFtlImage,
-    advantages: t('services.truck2.adv'),
-    routes: [{ name: t('services.truck2.r1.name'), desc: t('services.truck2.r1.desc') }],
-    color: 'orange',
-  },
+const railLclRoutes = computed(() => [
+  { name: t('services.rail1.r1.name'), desc: t('services.rail1.r1.desc') },
+  { name: t('services.rail1.r2.name'), desc: t('services.rail1.r2.desc') },
+]);
+
+const railFclRoutes = computed(() => [
+  { name: t('services.rail2.r1.name'), desc: t('services.rail2.r1.desc') },
+  { name: t('services.rail2.r2.name'), desc: t('services.rail2.r2.desc') },
+  { name: t('services.rail2.r3.name'), desc: t('services.rail2.r3.desc') },
+  { name: t('services.rail2.r4.name'), desc: t('services.rail2.r4.desc') },
 ]);
 </script>
 
 <template>
   <div class="pt-32 bg-white min-h-screen">
-    <section class="py-8 bg-slate-50 text-slate-900 relative overflow-hidden">
+    <section class="py-16 md:py-20 text-slate-900 relative overflow-hidden">
       <div class="absolute inset-0">
         <img
-          src="https://images.unsplash.com/photo-1586528116311-ad8ed74514f6?auto=format&fit=crop&w=2000&q=80"
-          alt="Products and Services"
-          class="w-full h-full object-cover opacity-10 mix-blend-multiply"
+          :src="yardBg"
+          alt="集装箱堆场"
+          class="w-full h-full object-cover object-[center_30%]"
         />
-        <div class="absolute inset-0 bg-gradient-to-r from-slate-50 via-slate-50/90 to-transparent" />
+        <div class="absolute inset-0 bg-gradient-to-r from-white via-white/88 to-white/50" />
       </div>
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="animate-fade-up">
-          <h1 class="text-4xl md:text-5xl font-bold mb-6 text-slate-900">{{ t('services.title') }}</h1>
+          <h1 class="text-[38px] font-bold mb-6 text-slate-900">{{ t('services.title') }}</h1>
           <div class="w-16 h-1.5 bg-blue-600 rounded-full mb-8" />
           <p class="text-xl md:text-2xl text-slate-600 font-light leading-relaxed text-balance">
             {{ t('services.desc') }}
@@ -211,78 +173,155 @@ const services = computed(() => [
       </div>
     </section>
 
-    <section class="py-8">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
-        <div
-          v-for="(service, index) in services"
-          :key="service.id"
-          class="flex flex-col lg:flex-row items-center gap-8"
-          :class="index % 2 !== 0 ? 'lg:flex-row-reverse' : ''"
-        >
-          <div class="w-full lg:w-1/2">
-            <div class="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/3] group">
+    <!-- 板块一：中欧班列铁路运输 -->
+    <section class="py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-12">
+          <div class="flex items-center gap-3 mb-4">
+            <TrainFront class="w-7 h-7 text-blue-600" />
+            <h2 class="text-3xl font-bold text-slate-900">{{ t('services.tab.rail') }}</h2>
+          </div>
+          <p class="text-lg text-slate-600 leading-relaxed max-w-4xl">
+            {{ t('services.rail.intro') }}
+          </p>
+        </div>
+
+        <div class="space-y-16">
+          <!-- LCL -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+            <div class="relative rounded-3xl overflow-hidden aspect-[4/3]">
               <img
-                :src="service.image"
-                :alt="service.type"
-                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                src="https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=1200&q=80"
+                :alt="t('services.rail1.type')"
+                class="w-full h-full object-cover"
               />
-              <div
-                class="absolute inset-0 opacity-20 mix-blend-multiply"
-                :class="service.color === 'blue' ? 'bg-blue-900' : 'bg-orange-900'"
-              />
+            </div>
+            <div>
+              <div class="flex items-center gap-3 mb-4">
+                <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center">
+                  <Package class="w-6 h-6 text-blue-600" />
+                </div>
+                <h3 class="text-2xl font-bold text-slate-900">{{ t('services.rail1.type') }}</h3>
+              </div>
+              <p class="text-sm text-slate-600 leading-relaxed mb-8">
+                <span class="font-semibold text-slate-800">{{ t('services.rail1.adv.label') }}：</span>
+                {{ t('services.rail1.adv') }}
+              </p>
+              <p class="text-sm font-bold text-blue-600 mb-4">{{ t('services.rail1.routes.label') }}</p>
+              <div class="space-y-5">
+                <div v-for="item in railLclRoutes" :key="item.name" class="flex items-start gap-3">
+                  <div class="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 mt-0.5">
+                    <Check class="w-4 h-4" />
+                  </div>
+                  <div>
+                    <p class="text-lg font-bold text-blue-700 mb-1">{{ item.name }}</p>
+                    <p class="text-sm text-slate-600 leading-relaxed">{{ item.desc }}</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="w-full lg:w-1/2">
-            <div class="flex items-center gap-4 mb-6">
-              <div
-                class="w-16 h-16 rounded-2xl flex items-center justify-center shadow-sm"
-                :class="service.color === 'blue' ? 'bg-blue-50' : 'bg-orange-50'"
-              >
-                <Package
-                  v-if="service.icon === 'package'"
-                  class="w-8 h-8"
-                  :class="service.color === 'blue' ? 'text-blue-600' : 'text-orange-500'"
-                />
-                <LayoutGrid
-                  v-else-if="service.icon === 'layout'"
-                  class="w-8 h-8 text-blue-600"
-                />
-                <Truck
-                  v-else
-                  class="w-8 h-8 text-orange-500"
-                />
+          <!-- FCL -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+            <div class="relative rounded-3xl overflow-hidden aspect-[4/3] lg:order-2">
+              <img
+                :src="railFclImage"
+                :alt="t('services.rail2.type')"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="lg:order-1">
+              <div class="flex items-center gap-3 mb-6">
+                <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center">
+                  <LayoutGrid class="w-6 h-6 text-blue-600" />
+                </div>
+                <h3 class="text-2xl font-bold text-slate-900">{{ t('services.rail2.type') }}</h3>
               </div>
-              <div>
-                <span
-                  class="text-sm font-bold tracking-wider uppercase"
-                  :class="service.color === 'blue' ? 'text-blue-600' : 'text-orange-500'"
-                >
-                  {{ service.category }}
-                </span>
-                <h2 class="text-3xl font-bold text-slate-800 mt-1">{{ service.type }}</h2>
+              <div class="space-y-5">
+                <div v-for="item in railFclRoutes" :key="item.name" class="flex items-start gap-3">
+                  <div class="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 mt-0.5">
+                    <Check class="w-4 h-4" />
+                  </div>
+                  <div>
+                    <p class="text-lg font-bold text-blue-700 mb-1">{{ item.name }}</p>
+                    <p class="text-sm text-slate-600 leading-relaxed">{{ item.desc }}</p>
+                  </div>
+                </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            <p class="text-lg text-slate-600 leading-relaxed mb-8">
-              {{ service.advantages }}
-            </p>
+    <!-- 板块二：国际汽运 -->
+    <section class="py-16 bg-slate-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-12">
+          <div class="flex items-center gap-3 mb-4">
+            <Truck class="w-7 h-7 text-orange-500" />
+            <h2 class="text-3xl font-bold text-slate-900">{{ t('services.tab.truck') }}</h2>
+          </div>
+          <p class="text-lg text-slate-600 leading-relaxed max-w-4xl">
+            {{ t('services.truck.intro') }}
+          </p>
+        </div>
 
-            <div class="space-y-6">
-              <div v-for="(routeItem, i) in service.routes" :key="i" class="flex items-start group">
-                <div
-                  class="w-8 h-8 rounded-full flex items-center justify-center mr-4 mt-0.5 shrink-0 transition-colors"
-                  :class="
-                    service.color === 'blue'
-                      ? 'bg-blue-50 group-hover:bg-blue-600 group-hover:text-white text-blue-600'
-                      : 'bg-orange-50 group-hover:bg-orange-500 group-hover:text-white text-orange-500'
-                  "
-                >
-                  <Check class="w-4 h-4" />
+        <div class="space-y-16">
+          <!-- LTL -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+            <div class="relative rounded-3xl overflow-hidden aspect-[4/3]">
+              <img
+                src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1200&q=80"
+                :alt="t('services.truck1.type')"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div>
+              <div class="flex items-center gap-3 mb-6">
+                <div class="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center">
+                  <Package class="w-6 h-6 text-orange-500" />
+                </div>
+                <h3 class="text-2xl font-bold text-slate-900">{{ t('services.truck1.type') }}</h3>
+              </div>
+              <div class="space-y-6">
+                <div>
+                  <p class="text-sm font-bold text-orange-600 mb-2">{{ t('services.truck1.route.label') }}</p>
+                  <p class="text-lg font-bold text-slate-900">{{ t('services.truck1.route') }}</p>
                 </div>
                 <div>
-                  <h4 class="text-lg font-bold text-slate-800 mb-1">{{ routeItem.name }}</h4>
-                  <p class="text-sm text-slate-500 leading-relaxed">{{ routeItem.desc }}</p>
+                  <p class="text-sm font-bold text-orange-600 mb-2">{{ t('services.truck1.scene.label') }}</p>
+                  <p class="text-sm text-slate-600 leading-relaxed">{{ t('services.truck1.adv') }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- FTL -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+            <div class="relative rounded-3xl overflow-hidden aspect-[4/3] lg:order-2">
+              <img
+                :src="truckFtlImage"
+                :alt="t('services.truck2.type')"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="lg:order-1">
+              <div class="flex items-center gap-3 mb-6">
+                <div class="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center">
+                  <Truck class="w-6 h-6 text-orange-500" />
+                </div>
+                <h3 class="text-2xl font-bold text-slate-900">{{ t('services.truck2.type') }}</h3>
+              </div>
+              <div class="space-y-6">
+                <div>
+                  <p class="text-sm font-bold text-orange-600 mb-2">{{ t('services.truck2.route.label') }}</p>
+                  <p class="text-lg font-bold text-slate-900">{{ t('services.truck2.route') }}</p>
+                </div>
+                <div>
+                  <p class="text-sm font-bold text-orange-600 mb-2">{{ t('services.truck2.feature.label') }}</p>
+                  <p class="text-sm text-slate-600 leading-relaxed">{{ t('services.truck2.adv') }}</p>
                 </div>
               </div>
             </div>

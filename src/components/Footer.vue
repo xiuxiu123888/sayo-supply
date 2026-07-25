@@ -12,7 +12,7 @@ const year = new Date().getFullYear();
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
         <div>
           <RouterLink to="/" class="mb-4 flex items-center">
-            <img :src="logo" alt="SAYO 山岳供应链" class="h-10 w-auto object-contain" />
+            <img :src="logo" alt="SAYO 山岳供应链" class="h-16 w-auto object-contain" />
           </RouterLink>
           <p class="text-sm text-slate-500 max-w-xs mt-4">
             {{ t('hero.tagline') }}
@@ -44,10 +44,6 @@ const year = new Date().getFullYear();
 
       <div class="pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
         <p>&copy; {{ year }} {{ t('footer.rights') }}</p>
-        <div class="mt-4 md:mt-0 flex space-x-4">
-          <a href="#" class="hover:text-blue-600 transition-colors">{{ t('footer.privacy') }}</a>
-          <a href="#" class="hover:text-blue-600 transition-colors">{{ t('footer.terms') }}</a>
-        </div>
       </div>
     </div>
   </footer>

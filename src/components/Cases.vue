@@ -36,7 +36,7 @@ const cases = computed(() => [
 </script>
 
 <template>
-  <section id="cases" class="py-24 bg-white">
+  <section id="cases" class="py-8 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-end mb-12">
         <div>
@@ -60,7 +60,7 @@ const cases = computed(() => [
             <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/30 to-transparent" />
             <div class="absolute bottom-5 left-5 right-5 flex justify-between items-end">
               <div>
-                <span class="px-2 py-1 bg-blue-600 text-white text-[10px] uppercase rounded mb-2 inline-block font-bold tracking-wider">
+                <span class="px-2.5 py-1 bg-blue-600 text-white text-sm uppercase rounded mb-2 inline-block font-bold tracking-wider">
                   {{ item.mode }}
                 </span>
                 <h3 class="text-white font-bold text-lg leading-tight">{{ item.title }}</h3>
@@ -68,11 +68,11 @@ const cases = computed(() => [
             </div>
           </div>
           <div class="p-6 flex flex-col flex-1">
-            <div class="flex items-center gap-3 mb-4">
-              <span class="text-slate-600 text-xs font-semibold bg-slate-100 px-2 py-1 rounded">{{ item.client }}</span>
-              <span class="text-blue-600 text-xs font-bold">{{ item.route }}</span>
+            <div class="flex items-center gap-3 mb-4 flex-wrap">
+              <span class="text-slate-600 text-sm font-semibold bg-slate-100 px-2.5 py-1 rounded">{{ item.client }}</span>
+              <span class="text-blue-600 text-sm font-bold">{{ item.route }}</span>
             </div>
-            <p class="text-slate-500 text-xs leading-relaxed flex-1">
+            <p class="text-slate-500 text-sm leading-relaxed flex-1">
               {{ item.desc }}
             </p>
           </div>

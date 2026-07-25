@@ -10,17 +10,17 @@ const { t } = useLanguage();
       <div class="flex items-center gap-8 md:gap-16 w-full md:w-auto overflow-x-auto pb-4 md:pb-0 scrollbar-hide">
         <div class="flex flex-col min-w-max">
           <span class="text-3xl font-bold text-slate-800">40+</span>
-          <span class="text-slate-500 text-[10px] uppercase tracking-wider mt-1">{{ t('stats.countries') }}</span>
+          <span class="text-slate-500 text-sm mt-1">{{ t('stats.countries') }}</span>
         </div>
         <div class="w-px h-10 bg-slate-200 hidden md:block" />
         <div class="flex flex-col min-w-max">
           <span class="text-3xl font-bold text-slate-800">10,000+</span>
-          <span class="text-slate-500 text-[10px] uppercase tracking-wider mt-1">{{ t('stats.clients') }}</span>
+          <span class="text-slate-500 text-sm mt-1">{{ t('stats.clients') }}</span>
         </div>
         <div class="w-px h-10 bg-slate-200 hidden md:block" />
         <div class="flex flex-col min-w-max">
           <span class="text-3xl font-bold text-slate-800">99.8%</span>
-          <span class="text-slate-500 text-[10px] uppercase tracking-wider mt-1">{{ t('stats.delivery') }}</span>
+          <span class="text-slate-500 text-sm mt-1">{{ t('stats.delivery') }}</span>
         </div>
       </div>
       <div class="flex gap-4 items-center shrink-0">
@@ -29,9 +29,9 @@ const { t } = useLanguage();
           <img class="w-8 h-8 rounded-full border-2 border-white object-cover shadow-sm" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=100&q=80" alt="Client 2" />
           <img class="w-8 h-8 rounded-full border-2 border-white object-cover shadow-sm" src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=100&q=80" alt="Client 3" />
         </div>
-        <p class="text-xs text-slate-600 flex flex-col">
+        <p class="text-sm text-slate-600 flex flex-col">
           <span class="font-bold italic">{{ t('stats.quote') }}</span>
-          <span class="opacity-60 text-[10px] uppercase mt-0.5">{{ t('stats.trusted') }}</span>
+          <span class="opacity-60 text-sm mt-0.5">{{ t('stats.trusted') }}</span>
         </p>
       </div>
     </div>

@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
 @theme {
+  --text-sm: 18px;
+  --text-sm--line-height: 1.625;
+
   --color-blue-50: #eef2fb;
   --color-blue-100: #d5e1f5;
   --color-blue-200: #aebceb;

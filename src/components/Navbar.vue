@@ -37,16 +37,16 @@ const toggleLang = () => setLang(lang.value === 'zh' ? 'en' : 'zh');
     >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-full">
         <div class="flex items-center gap-6">
-          <a href="mailto:partner@sayo-supply.com" class="flex items-center hover:text-amber-400 transition-colors">
+          <a href="mailto:partner@sayo-supply.com" class="flex items-center hover:text-amber-400 transition-colors text-sm">
             <Mail class="w-3.5 h-3.5 mr-1.5 text-amber-500" />
             partner@sayo-supply.com
           </a>
-          <a href="tel:4008888888" class="flex items-center hover:text-amber-400 transition-colors">
+          <a href="tel:4008888888" class="flex items-center hover:text-amber-400 transition-colors text-sm">
             <Phone class="w-3.5 h-3.5 mr-1.5 text-amber-500" />
             400-888-8888
           </a>
         </div>
-        <div class="hidden sm:block text-slate-400">
+        <div class="hidden sm:block text-slate-400 text-sm">
           {{ t('hero.tagline') }}
         </div>
       </div>
