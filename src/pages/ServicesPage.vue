@@ -106,7 +106,7 @@ const services = computed(() => [
 
 <template>
   <div class="pt-32 bg-white min-h-screen">
-    <section class="py-16 md:py-24 bg-slate-50 text-slate-900 relative overflow-hidden">
+    <section class="py-8 bg-slate-50 text-slate-900 relative overflow-hidden">
       <div class="absolute inset-0">
         <img
           src="https://images.unsplash.com/photo-1586528116311-ad8ed74514f6?auto=format&fit=crop&w=2000&q=80"
@@ -126,7 +126,7 @@ const services = computed(() => [
       </div>
     </section>
 
-    <section class="py-12 bg-slate-50">
+    <section class="py-4 bg-slate-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm">
           <div class="flex items-center mb-6">
@@ -211,12 +211,12 @@ const services = computed(() => [
       </div>
     </section>
 
-    <section class="py-24">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-32">
+    <section class="py-8">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
         <div
           v-for="(service, index) in services"
           :key="service.id"
-          class="flex flex-col lg:flex-row items-center gap-16"
+          class="flex flex-col lg:flex-row items-center gap-8"
           :class="index % 2 !== 0 ? 'lg:flex-row-reverse' : ''"
         >
           <div class="w-full lg:w-1/2">

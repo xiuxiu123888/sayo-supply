@@ -11,7 +11,7 @@ const onSubmit = (e: Event) => {
 </script>
 
 <template>
-  <section id="contact" class="py-24 bg-slate-50">
+  <section id="contact" class="py-10 bg-slate-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-end mb-12">
         <div>

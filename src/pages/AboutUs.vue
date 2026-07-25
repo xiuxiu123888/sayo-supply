@@ -8,7 +8,7 @@ const { t } = useLanguage();
 
 <template>
   <div class="pt-32 bg-white min-h-screen">
-    <section class="py-16 md:py-24 bg-slate-50 text-slate-900 relative overflow-hidden">
+    <section class="py-8 bg-slate-50 text-slate-900 relative overflow-hidden">
       <div class="absolute inset-0">
         <img
           src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=2000&q=80"

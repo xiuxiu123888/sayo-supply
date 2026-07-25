@@ -133,7 +133,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <section id="network" class="py-24 bg-white">
+  <section id="network" class="py-10 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12">
         <h2 class="text-3xl font-bold text-slate-900 mb-4">{{ t('network.title') }}</h2>
