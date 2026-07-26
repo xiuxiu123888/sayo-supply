@@ -38,11 +38,11 @@ const toggleLang = () => setLang(lang.value === 'zh' ? 'en' : 'zh');
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-full">
         <div class="flex items-center gap-6">
           <a href="mailto:partner@sayo-supply.com" class="flex items-center hover:text-amber-400 transition-colors text-sm">
-            <Mail class="w-3.5 h-3.5 mr-1.5 text-amber-500" />
+            <Mail class="w-4 h-4 mr-1.5 text-amber-500" />
             partner@sayo-supply.com
           </a>
           <a href="tel:4008888888" class="flex items-center hover:text-amber-400 transition-colors text-sm">
-            <Phone class="w-3.5 h-3.5 mr-1.5 text-amber-500" />
+            <Phone class="w-4 h-4 mr-1.5 text-amber-500" />
             400-888-8888
           </a>
         </div>

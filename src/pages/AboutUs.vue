@@ -1,10 +1,35 @@
 <script setup lang="ts">
-import { Anchor, Globe2, ShieldCheck, TrendingUp, Boxes, Clock } from 'lucide-vue-next';
+import { computed } from 'vue';
+import {
+  Boxes,
+  Globe2,
+  Anchor,
+  Clock,
+  ShieldCheck,
+  TrendingUp,
+  TrainFront,
+  Layers,
+} from 'lucide-vue-next';
 import { useLanguage } from '../i18n';
 import aboutImage from '../assets/images/d281984a53eab7e08f31302e7e3c45341779d581cdb6f-2TNjih_fw658webp.webp';
 import yardBg from '../assets/images/f31e33dde77a92d0c0b88e937e1f229dab52a52c351e2-52DxCA_fw658webp.webp';
 
 const { t } = useLanguage();
+
+const reasons = computed(() => [
+  { title: t('about.r1.title'), desc: t('about.r1.desc'), icon: Boxes },
+  { title: t('about.r2.title'), desc: t('about.r2.desc'), icon: Globe2 },
+  { title: t('about.r3.title'), desc: t('about.r3.desc'), icon: Layers },
+  { title: t('about.r4.title'), desc: t('about.r4.desc'), icon: Clock },
+]);
+
+const whyUs = computed(() => [
+  { title: t('whyus.p1.title'), desc: t('whyus.p1.desc'), icon: TrainFront },
+  { title: t('whyus.p2.title'), desc: t('whyus.p2.desc'), icon: Anchor },
+  { title: t('whyus.p3.title'), desc: t('whyus.p3.desc'), icon: ShieldCheck },
+  { title: t('whyus.p4.title'), desc: t('whyus.p4.desc'), icon: Clock },
+  { title: t('whyus.p5.title'), desc: t('whyus.p5.desc'), icon: TrendingUp },
+]);
 </script>
 
 <template>
@@ -81,111 +106,36 @@ const { t } = useLanguage();
       </div>
     </section>
 
-    <section class="py-20 bg-white">
+    <!-- 选择理由 + 为什么选择：左右并列 -->
+    <section class="py-16 md:py-20 bg-white border-t border-slate-100">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
-          <h2 class="text-3xl font-bold text-slate-800 mb-4">{{ t('about.reasons.title') }}</h2>
-          <div class="w-12 h-1 bg-blue-600 mx-auto rounded-full" />
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div class="bg-slate-50 rounded-2xl p-8">
-            <div class="flex items-center gap-3 mb-3">
-              <Boxes class="w-6 h-6 text-blue-600" />
-              <h3 class="text-xl font-bold text-slate-800">{{ t('about.r1.title') }}</h3>
-            </div>
-            <p class="text-slate-600 leading-relaxed">{{ t('about.r1.desc') }}</p>
-          </div>
-          <div class="bg-slate-50 rounded-2xl p-8">
-            <div class="flex items-center gap-3 mb-3">
-              <Globe2 class="w-6 h-6 text-blue-600" />
-              <h3 class="text-xl font-bold text-slate-800">{{ t('about.r2.title') }}</h3>
-            </div>
-            <p class="text-slate-600 leading-relaxed">{{ t('about.r2.desc') }}</p>
-          </div>
-          <div class="bg-slate-50 rounded-2xl p-8">
-            <div class="flex items-center gap-3 mb-3">
-              <Anchor class="w-6 h-6 text-orange-500" />
-              <h3 class="text-xl font-bold text-slate-800">{{ t('about.r3.title') }}</h3>
-            </div>
-            <p class="text-slate-600 leading-relaxed">{{ t('about.r3.desc') }}</p>
-          </div>
-          <div class="bg-slate-50 rounded-2xl p-8">
-            <div class="flex items-center gap-3 mb-3">
-              <Clock class="w-6 h-6 text-orange-500" />
-              <h3 class="text-xl font-bold text-slate-800">{{ t('about.r4.title') }}</h3>
-            </div>
-            <p class="text-slate-600 leading-relaxed">{{ t('about.r4.desc') }}</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-20 bg-slate-50">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
-          <h2 class="text-3xl font-bold text-slate-800 mb-4">{{ t('whyus.title') }}</h2>
-          <div class="w-12 h-1 bg-blue-600 mx-auto rounded-full" />
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
-          <div class="flex gap-6">
-            <div class="shrink-0">
-              <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
-                <Anchor class="w-8 h-8" />
-              </div>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-slate-800 mb-3">{{ t('whyus.p1.title') }}</h3>
-              <p class="text-slate-600 leading-relaxed">{{ t('whyus.p1.desc') }}</p>
-            </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+          <div>
+            <h2 class="text-2xl font-bold text-slate-900 mb-2">{{ t('about.reasons.title') }}</h2>
+            <div class="w-10 h-1 bg-blue-600 rounded-full mb-8" />
+            <ul class="space-y-6">
+              <li v-for="item in reasons" :key="item.title" class="flex gap-3">
+                <component :is="item.icon" class="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
+                <div>
+                  <h3 class="text-sm font-bold text-slate-900 mb-1.5">{{ item.title }}</h3>
+                  <p class="text-sm text-slate-600 leading-relaxed">{{ item.desc }}</p>
+                </div>
+              </li>
+            </ul>
           </div>
 
-          <div class="flex gap-6">
-            <div class="shrink-0">
-              <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center text-orange-600">
-                <Globe2 class="w-8 h-8" />
-              </div>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-slate-800 mb-3">{{ t('whyus.p2.title') }}</h3>
-              <p class="text-slate-600 leading-relaxed">{{ t('whyus.p2.desc') }}</p>
-            </div>
-          </div>
-
-          <div class="flex gap-6">
-            <div class="shrink-0">
-              <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600">
-                <ShieldCheck class="w-8 h-8" />
-              </div>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-slate-800 mb-3">{{ t('whyus.p3.title') }}</h3>
-              <p class="text-slate-600 leading-relaxed">{{ t('whyus.p3.desc') }}</p>
-            </div>
-          </div>
-
-          <div class="flex gap-6">
-            <div class="shrink-0">
-              <div class="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center text-amber-600">
-                <Clock class="w-8 h-8" />
-              </div>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-slate-800 mb-3">{{ t('whyus.p4.title') }}</h3>
-              <p class="text-slate-600 leading-relaxed">{{ t('whyus.p4.desc') }}</p>
-            </div>
-          </div>
-
-          <div class="flex gap-6 md:col-span-2 md:max-w-xl md:mx-auto">
-            <div class="shrink-0">
-              <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600">
-                <TrendingUp class="w-8 h-8" />
-              </div>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-slate-800 mb-3">{{ t('whyus.p5.title') }}</h3>
-              <p class="text-slate-600 leading-relaxed">{{ t('whyus.p5.desc') }}</p>
-            </div>
+          <div class="lg:border-l lg:border-slate-100 lg:pl-16">
+            <h2 class="text-2xl font-bold text-slate-900 mb-2">{{ t('whyus.title') }}</h2>
+            <div class="w-10 h-1 bg-amber-500 rounded-full mb-8" />
+            <ul class="space-y-6">
+              <li v-for="item in whyUs" :key="item.title" class="flex gap-3">
+                <component :is="item.icon" class="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+                <div>
+                  <h3 class="text-sm font-bold text-slate-900 mb-1.5">{{ item.title }}</h3>
+                  <p class="text-sm text-slate-600 leading-relaxed">{{ item.desc }}</p>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
