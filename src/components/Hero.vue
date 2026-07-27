@@ -14,17 +14,13 @@ const { t } = useLanguage();
         <img
           :src="bgImage"
           alt="集装箱堆场"
-          class="w-full h-full object-cover object-[68%_center]"
+          class="w-full h-full object-cover object-center"
         />
-        <!-- Keep photo vivid on the right; solid readable area on the left -->
-        <div
-          class="absolute inset-0 bg-gradient-to-r from-white from-0% via-white/95 via-35% to-white/40 to-75% md:to-65%"
-        />
-        <div class="absolute inset-0 bg-gradient-to-t from-white via-transparent to-white/40 md:to-transparent" />
+        <div class="absolute inset-0 bg-gradient-to-b from-white/85 via-white/70 to-white/90" />
       </div>
 
       <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="max-w-xl text-left animate-fade-up">
+        <div class="max-w-3xl mx-auto text-center animate-fade-up">
           <p class="text-sm font-semibold text-blue-600 tracking-wide mb-2">
             {{ t('hero.tagline') }}
           </p>
@@ -38,7 +34,7 @@ const { t } = useLanguage();
             {{ t('hero.desc1') }}
           </p>
 
-          <div class="flex flex-col sm:flex-row gap-3">
+          <div class="flex flex-col sm:flex-row gap-3 justify-center">
             <a
               href="#contact"
               class="inline-flex items-center justify-center px-8 py-3 text-sm font-semibold text-white bg-orange-500 rounded-full hover:bg-orange-600 transition-all"

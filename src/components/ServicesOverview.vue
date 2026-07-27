@@ -20,7 +20,7 @@ const { t } = useLanguage();
         <div class="group flex flex-col">
           <div class="relative h-64 sm:h-80 mb-8 rounded-2xl overflow-hidden bg-slate-100">
             <img
-              src="https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&q=80&w=800"
+              src="../assets/images/62a29bdff659322ce6bd5533c497cf848e8a1ea114c012-K9A45D_fw658webp.webp"
               alt="Railway Transport"
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             />

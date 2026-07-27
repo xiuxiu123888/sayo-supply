@@ -9,10 +9,15 @@ import {
   TrendingUp,
   TrainFront,
   Layers,
+  Target,
+  Crosshair,
+  Award,
 } from 'lucide-vue-next';
 import { useLanguage } from '../i18n';
 import aboutImage from '../assets/images/d281984a53eab7e08f31302e7e3c45341779d581cdb6f-2TNjih_fw658webp.webp';
 import yardBg from '../assets/images/f31e33dde77a92d0c0b88e937e1f229dab52a52c351e2-52DxCA_fw658webp.webp';
+import philosophyImg1 from '../assets/images/8f8030cbd3e763cb9471f0cda20458dc1260d7492e206-xVwPUz_fw658webp.webp';
+import philosophyImg2 from '../assets/images/98f7b44ec004915b0ab606745ce1b109ede1d0351444e8-u5BrLb_fw658webp.webp';
 
 const { t } = useLanguage();
 
@@ -29,6 +34,43 @@ const whyUs = computed(() => [
   { title: t('whyus.p3.title'), desc: t('whyus.p3.desc'), icon: ShieldCheck },
   { title: t('whyus.p4.title'), desc: t('whyus.p4.desc'), icon: Clock },
   { title: t('whyus.p5.title'), desc: t('whyus.p5.desc'), icon: TrendingUp },
+]);
+
+/** Checkerboard: text / image alternating. Images are placeholders to replace later. */
+const philosophyCells = computed(() => [
+  {
+    type: 'text' as const,
+    icon: Target,
+    title: t('hero.vision.label'),
+    desc: t('hero.vision'),
+  },
+  {
+    type: 'image' as const,
+    src: yardBg,
+    alt: t('hero.vision.label'),
+  },
+  {
+    type: 'text' as const,
+    icon: Crosshair,
+    title: t('hero.mission.label'),
+    desc: t('hero.mission'),
+  },
+  {
+    type: 'image' as const,
+    src: philosophyImg1,
+    alt: t('hero.values.label'),
+  },
+  {
+    type: 'text' as const,
+    icon: Award,
+    title: t('hero.values.label'),
+    desc: t('hero.values'),
+  },
+  {
+    type: 'image' as const,
+    src: philosophyImg2,
+    alt: t('hero.mission.label'),
+  },
 ]);
 </script>
 
@@ -47,28 +89,9 @@ const whyUs = computed(() => [
         <div class="animate-fade-up">
           <h1 class="text-[38px] font-bold mb-6 text-slate-900">{{ t('about.title') }}</h1>
           <div class="w-16 h-1.5 bg-blue-600 rounded-full mb-8" />
-          <p class="text-xl md:text-2xl text-slate-600 font-light leading-relaxed text-balance">
+          <!-- <p class="text-xl md:text-2xl text-slate-600 font-light leading-relaxed text-balance">
             {{ t('about.subtitle') }}
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-16 bg-white border-b border-slate-100">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="bg-slate-50 rounded-2xl px-6 py-8">
-            <p class="text-sm font-bold text-blue-600 tracking-wider mb-3">{{ t('hero.mission.label') }}</p>
-            <p class="text-slate-800 leading-relaxed">{{ t('hero.mission') }}</p>
-          </div>
-          <div class="bg-slate-50 rounded-2xl px-6 py-8">
-            <p class="text-sm font-bold text-blue-600 tracking-wider mb-3">{{ t('hero.vision.label') }}</p>
-            <p class="text-slate-800 leading-relaxed">{{ t('hero.vision') }}</p>
-          </div>
-          <div class="bg-slate-50 rounded-2xl px-6 py-8">
-            <p class="text-sm font-bold text-amber-600 tracking-wider mb-3">{{ t('hero.values.label') }}</p>
-            <p class="text-slate-800 leading-relaxed">{{ t('hero.values') }}</p>
-          </div>
+          </p> -->
         </div>
       </div>
     </section>
@@ -101,6 +124,43 @@ const whyUs = computed(() => [
             </div>
             <div class="absolute -bottom-8 -left-8 w-2/3 h-2/3 bg-slate-100 rounded-2xl z-0 hidden md:block" />
             <div class="absolute -top-8 -right-8 w-1/2 h-1/2 bg-blue-50 rounded-2xl z-0 hidden md:block" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="philosophy" class="py-16 md:py-20 bg-white border-b border-slate-100 scroll-mt-28">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-10 md:mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">
+            {{ t('nav.about.philosophy') }}
+          </h2>
+          <p class="text-sm text-slate-500 max-w-3xl mx-auto leading-relaxed">
+            {{ t('about.subtitle') }}
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3">
+          <div
+            v-for="(cell, index) in philosophyCells"
+            :key="index"
+            class="min-h-[220px] md:min-h-[260px]"
+          >
+            <div
+              v-if="cell.type === 'text'"
+              class="h-full flex flex-col items-center justify-center text-center px-8 py-10 bg-white"
+            >
+              <component :is="cell.icon" class="w-10 h-10 text-blue-600 mb-4 stroke-[1.5]" />
+              <h3 class="text-xl font-bold text-blue-600 mb-3">{{ cell.title }}</h3>
+              <p class="text-sm text-slate-500 leading-relaxed max-w-xs">{{ cell.desc }}</p>
+            </div>
+            <div v-else class="h-full overflow-hidden bg-slate-100">
+              <img
+                :src="cell.src"
+                :alt="cell.alt"
+                class="w-full h-full object-cover min-h-[220px] md:min-h-[260px]"
+              />
+            </div>
           </div>
         </div>
       </div>
