@@ -14,8 +14,9 @@ import {
   Award,
 } from 'lucide-vue-next';
 import { useLanguage } from '../i18n';
-import aboutImage from '../assets/images/d281984a53eab7e08f31302e7e3c45341779d581cdb6f-2TNjih_fw658webp.webp';
+import PageHero from '../components/PageHero.vue';
 import yardBg from '../assets/images/f31e33dde77a92d0c0b88e937e1f229dab52a52c351e2-52DxCA_fw658webp.webp';
+import aboutImage from '../assets/images/d281984a53eab7e08f31302e7e3c45341779d581cdb6f-2TNjih_fw658webp.webp';
 import philosophyImg1 from '../assets/images/8f8030cbd3e763cb9471f0cda20458dc1260d7492e206-xVwPUz_fw658webp.webp';
 import philosophyImg2 from '../assets/images/98f7b44ec004915b0ab606745ce1b109ede1d0351444e8-u5BrLb_fw658webp.webp';
 
@@ -76,25 +77,7 @@ const philosophyCells = computed(() => [
 
 <template>
   <div class="pt-32 bg-white min-h-screen">
-    <section class="py-16 md:py-20 text-slate-900 relative overflow-hidden">
-      <div class="absolute inset-0">
-        <img
-          :src="yardBg"
-          alt="集装箱堆场"
-          class="w-full h-full object-cover object-center"
-        />
-        <div class="absolute inset-0 bg-gradient-to-r from-white via-white/88 to-white/55" />
-      </div>
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="animate-fade-up">
-          <h1 class="text-[38px] font-bold mb-6 text-slate-900">{{ t('about.title') }}</h1>
-          <div class="w-16 h-1.5 bg-blue-600 rounded-full mb-8" />
-          <!-- <p class="text-xl md:text-2xl text-slate-600 font-light leading-relaxed text-balance">
-            {{ t('about.subtitle') }}
-          </p> -->
-        </div>
-      </div>
-    </section>
+    <PageHero :title="t('about.title')" />
 
     <section class="py-8">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

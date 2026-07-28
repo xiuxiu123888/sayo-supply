@@ -3,7 +3,7 @@ import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { Menu, X, Globe, Phone, Mail, ChevronDown } from 'lucide-vue-next';
 import { useLanguage } from '../i18n';
-import logo from '../../assets/logo.jpg';
+import logo from '../../assets/logo.png';
 
 const isScrolled = ref(false);
 const isMobileMenuOpen = ref(false);
@@ -22,11 +22,13 @@ onMounted(() => window.addEventListener('scroll', onScroll));
 onUnmounted(() => window.removeEventListener('scroll', onScroll));
 
 const navLinks = computed(() => [
-  { name: t('nav.network'), href: '/network' },
+  { name: t('nav.consult'), href: '/contact' },
 ]);
 
-const enterActive = computed(() => route.path === '/about');
-const bizActive = computed(() => route.path === '/crexpres' || route.path === '/services');
+const enterActive = computed(() => route.path === '/about' || route.path.startsWith('/careers'));
+const bizActive = computed(
+  () => route.path === '/crexpres' || route.path === '/trucking' || route.path === '/services',
+);
 
 const businessColumns = computed(() => [
   {
@@ -43,13 +45,11 @@ const businessColumns = computed(() => [
   {
     title: t('nav.biz.truck'),
     items: [
-      { id: 'truck-ftl', label: t('nav.biz.truck.ftl'), to: '' },
-      { id: 'truck-ltl', label: t('nav.biz.truck.ltl'), to: '' },
+      { id: 'truck-ftl', label: t('nav.biz.truck.ftl'), to: '/trucking?tab=truck-ftl' },
+      { id: 'truck-ltl', label: t('nav.biz.truck.ltl'), to: '/trucking?tab=truck-ltl' },
     ],
   },
 ]);
-
-const consultHref = computed(() => (route.path === '/' ? '#contact' : '/#contact'));
 
 const toggleLang = () => setLang(lang.value === 'zh' ? 'en' : 'zh');
 
@@ -59,6 +59,11 @@ const closeMenus = () => {
   isMobileBizOpen.value = false;
   isEnterOpen.value = false;
   isBizOpen.value = false;
+};
+
+const goCareers = () => {
+  setLang('zh');
+  closeMenus();
 };
 </script>
 
@@ -150,13 +155,13 @@ const closeMenus = () => {
                       <p class="text-sm font-bold text-slate-800 mb-3">{{ t('nav.join.group') }}</p>
                       <ul class="space-y-2.5">
                         <li>
-                          <a
-                            href="#"
+                          <RouterLink
+                            to="/careers"
                             class="text-sm text-slate-500 hover:text-blue-600 transition-colors"
-                            @click.prevent="closeMenus"
+                            @click="goCareers"
                           >
                             {{ t('nav.join.jobs') }}
-                          </a>
+                          </RouterLink>
                         </li>
                       </ul>
                     </div>
@@ -237,12 +242,6 @@ const closeMenus = () => {
               <Globe class="w-4 h-4 mr-1" />
               {{ lang === 'zh' ? 'EN' : '中文' }}
             </button>
-            <a
-              :href="consultHref"
-              class="bg-blue-700 hover:bg-blue-800 text-white px-5 py-2 rounded-full text-sm font-semibold transition-colors shadow-sm shadow-blue-700/20"
-            >
-              {{ t('nav.consult') }}
-            </a>
           </div>
 
           <div class="md:hidden flex items-center">
@@ -303,13 +302,13 @@ const closeMenus = () => {
             </div>
             <div>
               <p class="px-3 py-1 text-sm font-bold text-slate-800">{{ t('nav.join.group') }}</p>
-              <a
-                href="#"
+              <RouterLink
+                to="/careers"
                 class="block px-3 py-2 text-sm text-slate-500 rounded-md hover:bg-slate-50 hover:text-blue-600"
-                @click.prevent="closeMenus"
+                @click="goCareers"
               >
                 {{ t('nav.join.jobs') }}
-              </a>
+              </RouterLink>
             </div>
           </div>
 
@@ -365,13 +364,6 @@ const closeMenus = () => {
             <Globe class="w-5 h-5 mr-2" />
             {{ lang === 'zh' ? 'English' : '中文' }}
           </button>
-          <a
-            :href="consultHref"
-            class="block px-3 py-2 mt-4 text-base font-medium text-center text-white bg-blue-700 rounded-md hover:bg-blue-800"
-            @click="closeMenus"
-          >
-            {{ t('nav.consult') }}
-          </a>
         </div>
       </div>
     </Transition>

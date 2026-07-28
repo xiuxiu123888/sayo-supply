@@ -72,6 +72,7 @@ export const translations = {
 
     'services.title': '产品与服务',
     'services.desc': '依托“中欧班列”与国际汽运通道，为您提供灵活、稳定、高效的门到门跨境物流解决方案。',
+    'services.detail': '查看详情',
     'services.tab.rail': '中欧班列铁路运输',
     'services.tab.truck': '国际汽运',
     'services.rail.intro': '依托“中欧班列”国际铁路大通道，发挥铁路运输安全、快速、受自然环境影响小的优势。',
@@ -157,6 +158,18 @@ export const translations = {
     'crexpres.overseas.r2.body': '衔接目的地清关、拖车派送及本地分拨资源，支持从境外车站到最终收货地的延伸服务。',
     'crexpres.overseas.service': '提供境外段运输协调、节点运营支持，以及清关、拖车派送等延伸服务，协助客户完成端到端交付。',
     'crexpres.overseas.advantage': '山岳具备多模式组合与全程跟踪能力，可按货类与时效配置铁路干线与末端资源，降低跨境交接与末端交付风险。',
+
+    'trucking.ftl.brief': '适应高价值、紧急订单及铁路无法直达的偏远区域，提供全程专车、灵活预定的门到门跨境汽运服务。',
+    'trucking.ftl.route.title': '优势路线',
+    'trucking.ftl.route.body': '中国各地 → 中亚五国、阿塞拜疆、格鲁吉亚、俄罗斯、欧洲各国。',
+    'trucking.ftl.feature.title': '服务特点',
+    'trucking.ftl.feature.body': '全程专车运输，可根据货物特性选择 TIR 或非 TIR 车辆，并提供全程安保服务。',
+
+    'trucking.ltl.brief': '适合时效要求高、但货量不足以包车的客户，通过拼车共享运力，兼顾时效与成本。',
+    'trucking.ltl.route.title': '优势路线',
+    'trucking.ltl.route.body': '乌鲁木齐 – 阿拉木图 / 塔什干 / 莫斯科。',
+    'trucking.ltl.feature.title': '适用场景',
+    'trucking.ltl.feature.body': '中小批量、高频次出货需求，共享拼车成本优势，灵活衔接跨境末端配送。',
 
     'network.title': '我们的足迹：运输网络',
     'network.page.title': '我们的足迹',
@@ -333,6 +346,7 @@ export const translations = {
 
     'services.title': 'Products & Services',
     'services.desc': 'Relying on China-Europe Railway Express and international trucking corridors, we provide flexible, stable and efficient door-to-door cross-border logistics.',
+    'services.detail': 'View Details',
     'services.tab.rail': 'China-Europe Railway Express',
     'services.tab.truck': 'International Trucking',
     'services.rail.intro': 'Leveraging the China-Europe Railway Express corridor for safe, fast transport less affected by weather.',
@@ -418,6 +432,18 @@ export const translations = {
     'crexpres.overseas.r2.body': 'Connecting destination customs clearance, trucking delivery and local distribution from overseas stations to final consignees.',
     'crexpres.overseas.service': 'Overseas segment coordination, node operations support, plus clearance and trucking extensions to complete end-to-end delivery.',
     'crexpres.overseas.advantage': 'Multi-mode orchestration and full-journey tracking — configuring rail trunk and last-mile resources by cargo type and timeline to reduce handover and delivery risk.',
+
+    'trucking.ftl.brief': 'Flexible door-to-door full-truck services for high-value, urgent orders and destinations not directly served by rail.',
+    'trucking.ftl.route.title': 'Advantageous Routes',
+    'trucking.ftl.route.body': 'From across China → five Central Asian countries, Azerbaijan, Georgia, Russia and Europe.',
+    'trucking.ftl.feature.title': 'Service Features',
+    'trucking.ftl.feature.body': 'Dedicated full-truck transport with flexible booking; TIR or non-TIR vehicles based on cargo needs, with full security support.',
+
+    'trucking.ltl.brief': 'Ideal for time-sensitive shipments that are not large enough to charter a full truck — sharing capacity for better cost efficiency.',
+    'trucking.ltl.route.title': 'Advantageous Routes',
+    'trucking.ltl.route.body': 'Urumqi – Almaty / Tashkent / Moscow.',
+    'trucking.ltl.feature.title': 'Use Cases',
+    'trucking.ltl.feature.body': 'Mid/small batches and frequent shipping needs, sharing consolidation cost advantages with flexible last-mile connections.',
 
     'network.title': 'Our Footprint: Transportation Network',
     'network.page.title': 'Our Footprint',

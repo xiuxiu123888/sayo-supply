@@ -35,13 +35,13 @@ const { t } = useLanguage();
           </p>
 
           <div class="flex flex-col sm:flex-row gap-3 justify-center">
-            <a
-              href="#contact"
+            <RouterLink
+              to="/contact"
               class="inline-flex items-center justify-center px-8 py-3 text-sm font-semibold text-white bg-orange-500 rounded-full hover:bg-orange-600 transition-all"
             >
               {{ t('hero.btn.consult') }}
               <ArrowRight class="ml-2 w-4 h-4" />
-            </a>
+            </RouterLink>
             <RouterLink
               to="/services"
               class="inline-flex items-center justify-center px-8 py-3 text-sm font-semibold text-slate-700 bg-white rounded-full hover:bg-slate-50 transition-all border border-slate-200"

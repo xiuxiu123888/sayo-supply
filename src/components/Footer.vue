@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useLanguage } from '../i18n';
-import logo from '../../assets/logo.jpg';
+import logo from '../../assets/logo.png';
 
 const { t } = useLanguage();
 const year = new Date().getFullYear();
@@ -21,13 +21,10 @@ const year = new Date().getFullYear();
 
         <div class="flex flex-col space-y-4 text-sm font-medium">
           <h4 class="text-slate-900 font-bold mb-2">{{ t('footer.links') }}</h4>
-          <div class="grid grid-cols-2 gap-4">
-            <div class="flex flex-col space-y-3">
-              <RouterLink to="/" class="hover:text-blue-600 transition-colors">{{ t('nav.home') }}</RouterLink>
-              <RouterLink to="/about" class="hover:text-blue-600 transition-colors">{{ t('nav.about') }}</RouterLink>
-              <RouterLink to="/services" class="hover:text-blue-600 transition-colors">{{ t('nav.services') }}</RouterLink>
-              <RouterLink to="/network" class="hover:text-blue-600 transition-colors">{{ t('nav.network') }}</RouterLink>
-            </div>
+          <div class="flex flex-col space-y-3">
+            <RouterLink to="/" class="hover:text-blue-600 transition-colors">{{ t('nav.home') }}</RouterLink>
+            <RouterLink to="/about" class="hover:text-blue-600 transition-colors">{{ t('nav.about') }}</RouterLink>
+            <RouterLink to="/contact" class="hover:text-blue-600 transition-colors">{{ t('nav.consult') }}</RouterLink>
           </div>
         </div>
 

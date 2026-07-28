@@ -2,10 +2,22 @@
 import { computed, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useLanguage } from '../i18n';
+import PageHero from '../components/PageHero.vue';
+import mapZo from '../assets/images/zo.png';
+import mapZe from '../assets/images/ze.png';
+import mapZy from '../assets/images/zy.png';
+import mapKlh from '../assets/images/klh.png';
 
 const { t } = useLanguage();
 const route = useRoute();
 const router = useRouter();
+
+const mapByKey: Record<string, string> = {
+  ce: mapZo,
+  cr: mapZe,
+  ca: mapZy,
+  caspian: mapKlh,
+};
 
 const tabs = computed(() => [
   { id: 'rail-ce', key: 'ce', label: t('nav.biz.rail.ce') },
@@ -41,6 +53,7 @@ const content = computed(() => {
   const key = activeTab.value.key;
   return {
     brief: t(`crexpres.${key}.brief`),
+    map: mapByKey[key] ?? '',
     routes: [
       {
         title: t(`crexpres.${key}.r1.title`),
@@ -58,9 +71,11 @@ const content = computed(() => {
 </script>
 
 <template>
-  <div class="pt-28 md:pt-32 bg-white min-h-screen">
+  <div class="pt-32 bg-white min-h-screen">
+    <PageHero :title="t('crexpres.title')" />
+
     <section class="py-10 md:py-14">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Tab -->
         <div class="flex flex-wrap gap-2 border-b border-slate-200 pb-1 mb-10">
           <button
@@ -81,21 +96,21 @@ const content = computed(() => {
 
         <!-- 1. 班列简述 -->
         <div class="mb-10 md:mb-12">
-          <h1 class="text-2xl md:text-[28px] font-bold text-slate-900 mb-4">
+          <h2 class="text-2xl md:text-[28px] font-bold text-slate-900 mb-4">
             {{ activeTab.label }}
-          </h1>
+          </h2>
           <p class="text-sm text-slate-600 leading-relaxed">
             {{ content.brief }}
           </p>
         </div>
 
-        <!-- 2. 路线图 -->
-        <div
-          class="mb-10 md:mb-14 bg-slate-50 border border-dashed border-slate-200 min-h-70 md:min-h-90 flex items-center justify-center px-6"
-        >
-          <p class="text-sm text-slate-400 text-center">
-            {{ activeTab.label }} · {{ t('crexpres.map.placeholder') }}
-          </p>
+        <!-- 2. 路线图（境外段运营等无配图时不展示） -->
+        <div v-if="content.map" class="mb-10 md:mb-14">
+          <img
+            :src="content.map"
+            :alt="activeTab.label"
+            class="w-full h-auto"
+          />
         </div>
 
         <!-- 3. 航线描述 -->

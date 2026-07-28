@@ -11,13 +11,8 @@ const onSubmit = (e: Event) => {
 </script>
 
 <template>
-  <section id="contact" class="py-10 bg-slate-50">
+  <section class="py-10 bg-slate-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="mb-10">
-        <h2 class="text-2xl font-bold text-slate-800">{{ t('contact.title') }}</h2>
-        <div class="w-12 h-1 bg-amber-500 mt-4 rounded-full" />
-      </div>
-
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
         <!-- Contact info -->
         <div class="bg-white p-8 lg:p-10 rounded-2xl">
