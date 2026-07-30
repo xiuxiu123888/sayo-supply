@@ -287,10 +287,6 @@ const railFclRoutes = computed(() => [
               </div>
               <div class="space-y-6">
                 <div>
-                  <p class="text-sm font-bold text-orange-600 mb-2">{{ t('services.truck1.route.label') }}</p>
-                  <p class="text-lg font-bold text-slate-900">{{ t('services.truck1.route') }}</p>
-                </div>
-                <div>
                   <p class="text-sm font-bold text-orange-600 mb-2">{{ t('services.truck1.scene.label') }}</p>
                   <p class="text-sm text-slate-600 leading-relaxed">{{ t('services.truck1.adv') }}</p>
                 </div>

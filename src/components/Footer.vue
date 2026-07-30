@@ -22,8 +22,8 @@ const year = new Date().getFullYear();
         <div class="flex flex-col space-y-4 text-sm font-medium">
           <h4 class="text-slate-900 font-bold mb-2">{{ t('footer.links') }}</h4>
           <div class="flex flex-col space-y-3">
-            <RouterLink to="/" class="hover:text-blue-600 transition-colors">{{ t('nav.home') }}</RouterLink>
-            <RouterLink to="/about" class="hover:text-blue-600 transition-colors">{{ t('nav.about') }}</RouterLink>
+            <RouterLink to="/about" class="hover:text-blue-600 transition-colors">{{ t('nav.enter') }}</RouterLink>
+            <RouterLink to="/crexpres" class="hover:text-blue-600 transition-colors">{{ t('nav.biz') }}</RouterLink>
             <RouterLink to="/contact" class="hover:text-blue-600 transition-colors">{{ t('nav.consult') }}</RouterLink>
           </div>
         </div>

@@ -43,11 +43,13 @@ const selectTab = (id: string) => {
 
 const content = computed(() => {
   const key = activeTab.value.key;
+  const routeBody = t(`trucking.${key}.route.body`);
   return {
     brief: t(`trucking.${key}.brief`),
     map: mapByKey[key] ?? '',
     routeTitle: t(`trucking.${key}.route.title`),
-    routeBody: t(`trucking.${key}.route.body`),
+    routeBody,
+    showRoute: Boolean(routeBody),
     featureTitle: t(`trucking.${key}.feature.title`),
     featureBody: t(`trucking.${key}.feature.body`),
   };
@@ -95,7 +97,7 @@ const content = computed(() => {
         </div>
 
         <div class="space-y-8 pb-8">
-          <div>
+          <div v-if="content.showRoute">
             <h2 class="text-lg md:text-xl font-bold text-slate-900 mb-3">
               {{ content.routeTitle }}
             </h2>

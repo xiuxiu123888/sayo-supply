@@ -166,8 +166,8 @@ export const translations = {
     'trucking.ftl.feature.body': '全程专车运输，可根据货物特性选择 TIR 或非 TIR 车辆，并提供全程安保服务。',
 
     'trucking.ltl.brief': '适合时效要求高、但货量不足以包车的客户，通过拼车共享运力，兼顾时效与成本。',
-    'trucking.ltl.route.title': '优势路线',
-    'trucking.ltl.route.body': '乌鲁木齐 – 阿拉木图 / 塔什干 / 莫斯科。',
+    'trucking.ltl.route.title': '',
+    'trucking.ltl.route.body': '',
     'trucking.ltl.feature.title': '适用场景',
     'trucking.ltl.feature.body': '中小批量、高频次出货需求，共享拼车成本优势，灵活衔接跨境末端配送。',
 
@@ -440,8 +440,8 @@ export const translations = {
     'trucking.ftl.feature.body': 'Dedicated full-truck transport with flexible booking; TIR or non-TIR vehicles based on cargo needs, with full security support.',
 
     'trucking.ltl.brief': 'Ideal for time-sensitive shipments that are not large enough to charter a full truck — sharing capacity for better cost efficiency.',
-    'trucking.ltl.route.title': 'Advantageous Routes',
-    'trucking.ltl.route.body': 'Urumqi – Almaty / Tashkent / Moscow.',
+    'trucking.ltl.route.title': '',
+    'trucking.ltl.route.body': '',
     'trucking.ltl.feature.title': 'Use Cases',
     'trucking.ltl.feature.body': 'Mid/small batches and frequent shipping needs, sharing consolidation cost advantages with flexible last-mile connections.',
 
