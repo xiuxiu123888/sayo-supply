@@ -7,6 +7,8 @@ type MessageRow = {
   id: number;
   name: string;
   phone: string;
+  email: string;
+  contact: string;
   company: string;
   message: string;
   contacted: number;
@@ -211,7 +213,7 @@ onMounted(load);
                 <th class="text-left font-semibold px-4 py-3">ID</th>
                 <th class="text-left font-semibold px-4 py-3">提交时间</th>
                 <th class="text-left font-semibold px-4 py-3">姓名</th>
-                <th class="text-left font-semibold px-4 py-3">电话</th>
+                <th class="text-left font-semibold px-4 py-3">联系方式</th>
                 <th class="text-left font-semibold px-4 py-3">公司</th>
                 <th class="text-left font-semibold px-4 py-3">需求摘要</th>
                 <th class="text-left font-semibold px-4 py-3">是否联系</th>
@@ -228,7 +230,7 @@ onMounted(load);
                 <td class="px-4 py-3 text-slate-500">{{ row.id }}</td>
                 <td class="px-4 py-3 whitespace-nowrap">{{ row.created_at }}</td>
                 <td class="px-4 py-3 font-medium text-slate-900">{{ row.name }}</td>
-                <td class="px-4 py-3">{{ row.phone }}</td>
+                <td class="px-4 py-3">{{ row.contact || row.phone || row.email || '-' }}</td>
                 <td class="px-4 py-3">{{ row.company || '-' }}</td>
                 <td class="px-4 py-3 max-w-xs truncate text-slate-600">{{ row.message }}</td>
                 <td class="px-4 py-3">
@@ -287,8 +289,8 @@ onMounted(load);
             <dd class="text-slate-900">{{ selected.name }}</dd>
           </div>
           <div>
-            <dt class="text-slate-500 mb-1">电话</dt>
-            <dd class="text-slate-900">{{ selected.phone }}</dd>
+            <dt class="text-slate-500 mb-1">联系方式</dt>
+            <dd class="text-slate-900">{{ selected.contact || selected.phone || selected.email || '-' }}</dd>
           </div>
           <div>
             <dt class="text-slate-500 mb-1">公司</dt>

@@ -7,28 +7,46 @@ import { apiPost } from '../api';
 const { t } = useLanguage();
 
 const name = ref('');
-const phone = ref('');
+const contact = ref('');
 const company = ref('');
 const message = ref('');
 const loading = ref(false);
 const error = ref('');
 const success = ref('');
 
+const normalizePhone = (value: string) => value.replace(/[\s\-()]/g, '');
+
+const isValidPhone = (value: string) => {
+  const normalized = normalizePhone(value);
+  if (/^(\+?86|0086)?1[3-9]\d{9}$/.test(normalized)) return true;
+  if (/^0\d{2,3}\d{7,8}$/.test(normalized)) return true;
+  return false;
+};
+
+const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+
 const onSubmit = async (e: Event) => {
   e.preventDefault();
   error.value = '';
   success.value = '';
+
+  const contactValue = contact.value.trim();
+  if (!isValidPhone(contactValue) && !isValidEmail(contactValue)) {
+    error.value = t('contact.form.contact.invalid');
+    return;
+  }
+
   loading.value = true;
   try {
     await apiPost('/api/contact', {
       name: name.value.trim(),
-      phone: phone.value.trim(),
+      contact: contactValue,
       company: company.value.trim(),
       message: message.value.trim(),
     });
     success.value = t('contact.form.success');
     name.value = '';
-    phone.value = '';
+    contact.value = '';
     company.value = '';
     message.value = '';
   } catch (err: any) {
@@ -126,14 +144,14 @@ const onSubmit = async (e: Event) => {
                 />
               </div>
               <div>
-                <label for="phone" class="block text-sm font-medium text-slate-700 mb-1.5">{{ t('contact.form.phone') }}</label>
+                <label for="contact" class="block text-sm font-medium text-slate-700 mb-1.5">{{ t('contact.form.contact') }}</label>
                 <input
-                  id="phone"
-                  v-model="phone"
-                  type="tel"
+                  id="contact"
+                  v-model="contact"
+                  type="text"
                   required
                   class="w-full px-4 py-3 text-sm rounded-lg bg-white text-slate-800 placeholder:text-slate-400 border border-slate-200 focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-colors"
-                  :placeholder="t('contact.form.phone.ph')"
+                  :placeholder="t('contact.form.contact.ph')"
                 />
               </div>
             </div>

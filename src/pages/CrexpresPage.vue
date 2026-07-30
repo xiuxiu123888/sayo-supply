@@ -7,6 +7,7 @@ import mapZo from '../assets/images/zo.png';
 import mapZe from '../assets/images/ze.png';
 import mapZy from '../assets/images/zy.png';
 import mapKlh from '../assets/images/klh.png';
+import mapLcl from '../assets/images/image.png';
 
 const { t } = useLanguage();
 const route = useRoute();
@@ -17,6 +18,7 @@ const mapByKey: Record<string, string> = {
   cr: mapZe,
   ca: mapZy,
   caspian: mapKlh,
+  lcl: mapLcl,
 };
 
 const tabs = computed(() => [

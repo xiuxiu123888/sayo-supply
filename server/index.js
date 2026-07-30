@@ -35,14 +35,22 @@ if (!existingCols.includes('contacted')) {
 if (!existingCols.includes('note')) {
   db.exec(`ALTER TABLE contact_messages ADD COLUMN note TEXT NOT NULL DEFAULT ''`);
 }
+if (!existingCols.includes('email')) {
+  db.exec(`ALTER TABLE contact_messages ADD COLUMN email TEXT NOT NULL DEFAULT ''`);
+}
 
 const insertMessage = db.prepare(`
-  INSERT INTO contact_messages (name, phone, company, message)
-  VALUES (@name, @phone, @company, @message)
+  INSERT INTO contact_messages (name, phone, email, company, message)
+  VALUES (@name, @phone, @email, @company, @message)
 `);
 
 const getMessage = db.prepare(`
-  SELECT id, name, phone, company, message, contacted, note, created_at
+  SELECT id, name, phone, email, company, message, contacted, note, created_at,
+    CASE
+      WHEN phone != '' AND email != '' AND phone != email THEN phone || ' / ' || email
+      WHEN email != '' AND (phone = '' OR phone = email) THEN email
+      ELSE phone
+    END AS contact
   FROM contact_messages
   WHERE id = ?
 `);
@@ -94,6 +102,23 @@ function isDateOnly(value) {
   return /^\d{4}-\d{2}-\d{2}$/.test(value);
 }
 
+function normalizePhone(value) {
+  return String(value || '').replace(/[\s\-()]/g, '');
+}
+
+function isValidPhone(value) {
+  const phone = normalizePhone(value);
+  // 中国大陆手机号，或带 +86 / 0086 前缀
+  if (/^(\+?86|0086)?1[3-9]\d{9}$/.test(phone)) return true;
+  // 固话：区号+号码，如 01012345678 / 075512345678
+  if (/^0\d{2,3}\d{7,8}$/.test(phone)) return true;
+  return false;
+}
+
+function isValidEmail(value) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
 const app = express();
 app.use(cors());
 app.use(express.json({ limit: '100kb' }));
@@ -104,18 +129,30 @@ app.get('/api/health', (_req, res) => {
 
 app.post('/api/contact', (req, res) => {
   const name = String(req.body?.name || '').trim();
-  const phone = String(req.body?.phone || '').trim();
+  const contact = String(req.body?.contact || req.body?.phone || req.body?.email || '').trim();
   const company = String(req.body?.company || '').trim();
   const message = String(req.body?.message || '').trim();
 
-  if (!name || !phone || !message) {
-    return res.status(400).json({ ok: false, error: '请填写姓名、电话和需求描述' });
+  if (!name || !contact || !message) {
+    return res.status(400).json({ ok: false, error: '请填写姓名、联系方式和需求描述' });
   }
-  if (name.length > 80 || phone.length > 40 || company.length > 120 || message.length > 2000) {
+  if (!isValidPhone(contact) && !isValidEmail(contact)) {
+    return res.status(400).json({ ok: false, error: '请输入有效的手机号、固话或邮箱' });
+  }
+  if (name.length > 80 || contact.length > 120 || company.length > 120 || message.length > 2000) {
     return res.status(400).json({ ok: false, error: '字段长度超出限制' });
   }
 
-  const result = insertMessage.run({ name, phone, company, message });
+  const phone = isValidPhone(contact) ? contact : '';
+  const email = isValidEmail(contact) ? contact : '';
+  // 统一写入 phone 便于兼容旧数据展示；邮箱也会写入 email
+  const result = insertMessage.run({
+    name,
+    phone: phone || contact,
+    email,
+    company,
+    message,
+  });
   res.json({ ok: true, id: Number(result.lastInsertRowid) });
 });
 
@@ -158,7 +195,12 @@ app.get('/api/admin/messages', requireAuth, (req, res) => {
   }
 
   const sql = `
-    SELECT id, name, phone, company, message, contacted, note, created_at
+    SELECT id, name, phone, email, company, message, contacted, note, created_at,
+      CASE
+        WHEN phone != '' AND email != '' AND phone != email THEN phone || ' / ' || email
+        WHEN email != '' AND (phone = '' OR phone = email) THEN email
+        ELSE phone
+      END AS contact
     FROM contact_messages
     ${where.length ? `WHERE ${where.join(' AND ')}` : ''}
     ORDER BY id DESC
