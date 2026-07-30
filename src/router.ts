@@ -8,6 +8,9 @@ import TruckingPage from './pages/TruckingPage.vue';
 import ContactPage from './pages/ContactPage.vue';
 import CareersPage from './pages/CareersPage.vue';
 import CareerDetailPage from './pages/CareerDetailPage.vue';
+import AdminLogin from './pages/admin/AdminLogin.vue';
+import AdminMessages from './pages/admin/AdminMessages.vue';
+import { getAdminToken } from './api';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -21,6 +24,9 @@ const router = createRouter({
     { path: '/contact', name: 'contact', component: ContactPage },
     { path: '/careers', name: 'careers', component: CareersPage },
     { path: '/careers/:slug', name: 'career-detail', component: CareerDetailPage },
+    { path: '/admin', redirect: '/admin/messages' },
+    { path: '/admin/login', name: 'admin-login', component: AdminLogin, meta: { admin: true, public: true } },
+    { path: '/admin/messages', name: 'admin-messages', component: AdminMessages, meta: { admin: true } },
   ],
   scrollBehavior(to) {
     if (to.hash) {
@@ -32,6 +38,16 @@ const router = createRouter({
     }
     return { top: 0 };
   },
+});
+
+router.beforeEach((to) => {
+  if (to.meta.admin && !to.meta.public && !getAdminToken()) {
+    return { path: '/admin/login', query: { redirect: to.fullPath } };
+  }
+  if (to.path === '/admin/login' && getAdminToken()) {
+    return { path: '/admin/messages' };
+  }
+  return true;
 });
 
 export default router;

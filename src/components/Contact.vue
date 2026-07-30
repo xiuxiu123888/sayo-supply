@@ -1,12 +1,41 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { Building, Phone, Mail, Clock } from 'lucide-vue-next';
 import { useLanguage } from '../i18n';
-import logo from '../assets/images/SAYO.png';
+import { apiPost } from '../api';
 
 const { t } = useLanguage();
 
-const onSubmit = (e: Event) => {
+const name = ref('');
+const phone = ref('');
+const company = ref('');
+const message = ref('');
+const loading = ref(false);
+const error = ref('');
+const success = ref('');
+
+const onSubmit = async (e: Event) => {
   e.preventDefault();
+  error.value = '';
+  success.value = '';
+  loading.value = true;
+  try {
+    await apiPost('/api/contact', {
+      name: name.value.trim(),
+      phone: phone.value.trim(),
+      company: company.value.trim(),
+      message: message.value.trim(),
+    });
+    success.value = t('contact.form.success');
+    name.value = '';
+    phone.value = '';
+    company.value = '';
+    message.value = '';
+  } catch (err: any) {
+    error.value = err?.message || t('contact.form.error');
+  } finally {
+    loading.value = false;
+  }
 };
 </script>
 
@@ -14,13 +43,10 @@ const onSubmit = (e: Event) => {
   <section class="py-10 bg-slate-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-        <!-- Contact info -->
         <div class="bg-white p-8 lg:p-10 rounded-2xl">
           <div class="mb-8 flex items-center gap-4">
-            <!-- <img :src="logo" alt="SAYO 山岳供应链" class="h-12 w-auto object-contain shrink-0" /> -->
             <div>
               <h3 class="text-xl font-bold text-slate-900">{{ t('contact.info.title') }}</h3>
-              <!-- <p class="text-slate-500 text-sm mt-1">{{ t('hero.tagline') }}</p> -->
             </div>
           </div>
 
@@ -84,7 +110,6 @@ const onSubmit = (e: Event) => {
           </div>
         </div>
 
-        <!-- Form -->
         <div class="bg-white p-8 lg:p-10 rounded-2xl">
           <h3 class="text-xl font-bold text-slate-800 mb-6">{{ t('contact.form.title') }}</h3>
           <form class="space-y-4" @submit="onSubmit">
@@ -93,7 +118,9 @@ const onSubmit = (e: Event) => {
                 <label for="name" class="block text-sm font-medium text-slate-700 mb-1.5">{{ t('contact.form.name') }}</label>
                 <input
                   id="name"
+                  v-model="name"
                   type="text"
+                  required
                   class="w-full px-4 py-3 text-sm rounded-lg bg-white text-slate-800 placeholder:text-slate-400 border border-slate-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-colors"
                   :placeholder="t('contact.form.name.ph')"
                 />
@@ -102,7 +129,9 @@ const onSubmit = (e: Event) => {
                 <label for="phone" class="block text-sm font-medium text-slate-700 mb-1.5">{{ t('contact.form.phone') }}</label>
                 <input
                   id="phone"
+                  v-model="phone"
                   type="tel"
+                  required
                   class="w-full px-4 py-3 text-sm rounded-lg bg-white text-slate-800 placeholder:text-slate-400 border border-slate-200 focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-colors"
                   :placeholder="t('contact.form.phone.ph')"
                 />
@@ -113,6 +142,7 @@ const onSubmit = (e: Event) => {
               <label for="company" class="block text-sm font-medium text-slate-700 mb-1.5">{{ t('contact.form.company') }}</label>
               <input
                 id="company"
+                v-model="company"
                 type="text"
                 class="w-full px-4 py-3 text-sm rounded-lg bg-white text-slate-800 placeholder:text-slate-400 border border-slate-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-colors"
                 :placeholder="t('contact.form.company.ph')"
@@ -123,17 +153,23 @@ const onSubmit = (e: Event) => {
               <label for="message" class="block text-sm font-medium text-slate-700 mb-1.5">{{ t('contact.form.msg') }}</label>
               <textarea
                 id="message"
+                v-model="message"
                 rows="4"
+                required
                 class="w-full px-4 py-3 text-sm rounded-lg bg-white text-slate-800 placeholder:text-slate-400 border border-slate-200 focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-colors resize-none"
                 :placeholder="t('contact.form.msg.ph')"
               />
             </div>
 
+            <p v-if="error" class="text-sm text-red-600">{{ error }}</p>
+            <p v-if="success" class="text-sm text-green-600">{{ success }}</p>
+
             <button
               type="submit"
-              class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3.5 rounded-lg text-sm transition-all shadow-lg shadow-amber-500/20 mt-2"
+              class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3.5 rounded-lg text-sm transition-all shadow-lg shadow-amber-500/20 mt-2 disabled:opacity-60"
+              :disabled="loading"
             >
-              {{ t('contact.form.btn') }}
+              {{ loading ? t('contact.form.sending') : t('contact.form.btn') }}
             </button>
           </form>
         </div>

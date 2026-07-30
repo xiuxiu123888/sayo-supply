@@ -7,3 +7,5 @@ coverage/
 .env*
 !.env.example
 *.pptx
+server/data.sqlite
+server/data.sqlite-*

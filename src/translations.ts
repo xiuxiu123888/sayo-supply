@@ -261,6 +261,9 @@ export const translations = {
     'contact.form.msg': '需求描述',
     'contact.form.msg.ph': '请简述您的货物品类、起运地、目的地等信息...',
     'contact.form.btn': '发送留言',
+    'contact.form.sending': '提交中...',
+    'contact.form.success': '提交成功，我们会尽快与您联系。',
+    'contact.form.error': '提交失败，请稍后重试。',
 
     'footer.rights': '山岳供应链有限公司（Sayo Supply Chain Co., Ltd.）保留所有权利。',
     'footer.links': '快速链接',
@@ -535,6 +538,9 @@ export const translations = {
     'contact.form.msg': 'Requirements',
     'contact.form.msg.ph': 'Briefly describe cargo type, origin, destination, etc...',
     'contact.form.btn': 'Send Message',
+    'contact.form.sending': 'Sending...',
+    'contact.form.success': 'Submitted successfully. We will contact you soon.',
+    'contact.form.error': 'Submission failed. Please try again later.',
 
     'footer.rights': 'Sayo Supply Chain Co., Ltd. All rights reserved.',
     'footer.links': 'Quick Links',
