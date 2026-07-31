@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ArrowRight, Search } from 'lucide-vue-next';
 import { useLanguage } from '../i18n';
-import bgImage from '../assets/images/f31e33dde77a92d0c0b88e937e1f229dab52a52c351e2-52DxCA_fw658webp.webp';
+import bgImage from '../assets/images/Gemini_Generated_Image_8u2uw8u2uw8u2uw8.png';
 
 const { t } = useLanguage();
 </script>
@@ -16,11 +16,12 @@ const { t } = useLanguage();
           alt="集装箱堆场"
           class="w-full h-full object-cover object-center"
         />
-        <div class="absolute inset-0 bg-gradient-to-b from-white/85 via-white/70 to-white/90" />
+        <div class="absolute inset-0 bg-gradient-to-b from-white/40 via-white/25 to-white/50" />
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.82)_0%,rgba(255,255,255,0.45)_42%,transparent_72%)]" />
       </div>
 
       <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="max-w-3xl mx-auto text-center animate-fade-up">
+        <div class="max-w-3xl mx-auto text-center animate-fade-up [text-shadow:0_1px_2px_rgba(255,255,255,0.9)]">
           <p class="text-sm font-semibold text-blue-600 tracking-wide mb-2">
             {{ t('hero.tagline') }}
           </p>
