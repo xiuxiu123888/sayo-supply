@@ -42,13 +42,7 @@ const { t } = useLanguage();
               {{ t('hero.btn.consult') }}
               <ArrowRight class="ml-2 w-4 h-4" />
             </RouterLink>
-            <RouterLink
-              to="/services"
-              class="inline-flex items-center justify-center px-8 py-3 text-sm font-semibold text-slate-700 bg-white rounded-full hover:bg-slate-50 transition-all border border-slate-200"
-            >
-              {{ t('hero.btn.routes') }}
-              <Search class="ml-2 w-4 h-4" />
-            </RouterLink>
+            
           </div>
         </div>
       </div>

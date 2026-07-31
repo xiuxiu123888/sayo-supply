@@ -19,7 +19,7 @@ export const jobs: JobPosting[] = [
   {
     slug: 'intl-logistics-sales',
     title: '国际物流销售',
-    location: '全球',
+    location: '深圳',
     nature: '综合物流/大洋快运/拼箱部/运达人',
     headcount: '数名',
     gender: '不限制',

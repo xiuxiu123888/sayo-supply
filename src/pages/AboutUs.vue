@@ -15,8 +15,8 @@ import {
 } from 'lucide-vue-next';
 import { useLanguage } from '../i18n';
 import PageHero from '../components/PageHero.vue';
-import yardBg from '../assets/images/f31e33dde77a92d0c0b88e937e1f229dab52a52c351e2-52DxCA_fw658webp.webp';
-import aboutImage from '../assets/images/d281984a53eab7e08f31302e7e3c45341779d581cdb6f-2TNjih_fw658webp.webp';
+import yardBg from '../assets/images/8bba2eb8a5cdafca269c481c6ed5802dda80b148322eec-SSykN0_fw658webp.webp';
+import aboutImage from '../assets/images/about.png';
 import philosophyImg1 from '../assets/images/8f8030cbd3e763cb9471f0cda20458dc1260d7492e206-xVwPUz_fw658webp.webp';
 import philosophyImg2 from '../assets/images/98f7b44ec004915b0ab606745ce1b109ede1d0351444e8-u5BrLb_fw658webp.webp';
 
@@ -96,6 +96,9 @@ const philosophyCells = computed(() => [
               </div>
               <div class="border-l-4 border-orange-500 pl-4">
                 <p class="text-xl font-bold text-slate-800">{{ t('about.val2') }}</p>
+              </div>
+              <div class="border-l-4 border-emerald-600 pl-4">
+                <p class="text-xl font-bold text-slate-800">{{ t('about.val3') }}</p>
               </div>
             </div>
           </div>

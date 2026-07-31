@@ -25,6 +25,9 @@ const navLinks = computed(() => [
   { name: t('nav.consult'), href: '/contact' },
 ]);
 
+const isHomeActive = computed(() => route.path === '/' && route.hash !== '#cases');
+const isCasesActive = computed(() => route.hash === '#cases');
+
 const enterActive = computed(() => route.path === '/about' || route.path.startsWith('/careers'));
 const bizActive = computed(
   () => route.path === '/crexpres' || route.path === '/trucking' || route.path === '/services',
@@ -65,6 +68,32 @@ const goCareers = () => {
   setLang('zh');
   closeMenus();
 };
+
+const HEADER_PHONE = '+86 18823730235';
+const HEADER_EMAIL = 'shadow@sayotrans.com';
+const showCopyToast = ref(false);
+let toastTimer: ReturnType<typeof setTimeout> | null = null;
+
+const copyText = async (text: string) => {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch {
+    const input = document.createElement('textarea');
+    input.value = text;
+    input.setAttribute('readonly', '');
+    input.style.position = 'fixed';
+    input.style.left = '-9999px';
+    document.body.appendChild(input);
+    input.select();
+    document.execCommand('copy');
+    document.body.removeChild(input);
+  }
+  showCopyToast.value = true;
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    showCopyToast.value = false;
+  }, 1500);
+};
 </script>
 
 <template>
@@ -75,14 +104,22 @@ const goCareers = () => {
     >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-full">
         <div class="flex items-center gap-6">
-          <a href="mailto:partner@sayo-supply.com" class="flex items-center hover:text-amber-400 transition-colors text-sm">
+          <button
+            type="button"
+            class="flex items-center hover:text-amber-400 transition-colors text-sm"
+            @click="copyText(HEADER_EMAIL)"
+          >
             <Mail class="w-4 h-4 mr-1.5 text-amber-500" />
-            partner@sayo-supply.com
-          </a>
-          <a href="tel:4008888888" class="flex items-center hover:text-amber-400 transition-colors text-sm">
+            <span>{{ HEADER_EMAIL }}</span>
+          </button>
+          <button
+            type="button"
+            class="flex items-center hover:text-amber-400 transition-colors text-sm"
+            @click="copyText(HEADER_PHONE)"
+          >
             <Phone class="w-4 h-4 mr-1.5 text-amber-500" />
-            400-888-8888
-          </a>
+            <span>{{ HEADER_PHONE }}</span>
+          </button>
         </div>
         <div class="hidden sm:block text-slate-400 text-sm">
           {{ t('hero.tagline') }}
@@ -97,10 +134,18 @@ const goCareers = () => {
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center">
           <RouterLink to="/" class="flex items-center">
-            <img :src="logo" alt="SAYO 山岳供应链" class="h-10 w-auto object-contain" />
+            <img :src="logo" alt="SAYO 山岳供应链" class="h-12 w-auto object-contain" />
           </RouterLink>
 
           <div class="hidden md:flex items-center space-x-8">
+            <RouterLink
+              to="/"
+              class="transition-colors text-sm font-medium"
+              :class="isHomeActive ? 'text-blue-600' : 'text-slate-600 hover:text-blue-600'"
+            >
+              {{ t('nav.home') }}
+            </RouterLink>
+
             <!-- 走进山岳 -->
             <div
               class="relative"
@@ -232,6 +277,14 @@ const goCareers = () => {
             >
               {{ link.name }}
             </RouterLink>
+
+            <RouterLink
+              to="/#cases"
+              class="transition-colors text-sm font-medium"
+              :class="isCasesActive ? 'text-blue-600' : 'text-slate-600 hover:text-blue-600'"
+            >
+              {{ t('nav.cases') }}
+            </RouterLink>
           </div>
 
           <div class="hidden md:flex items-center gap-4">
@@ -270,6 +323,15 @@ const goCareers = () => {
         class="md:hidden absolute top-full left-0 w-full bg-white shadow-xl max-h-[80vh] overflow-y-auto"
       >
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+          <RouterLink
+            to="/"
+            class="block px-3 py-2 text-base font-medium rounded-md"
+            :class="isHomeActive ? 'text-blue-600 bg-blue-50' : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50'"
+            @click="closeMenus"
+          >
+            {{ t('nav.home') }}
+          </RouterLink>
+
           <button
             type="button"
             class="w-full flex items-center justify-between px-3 py-2 text-base font-medium rounded-md"
@@ -356,6 +418,14 @@ const goCareers = () => {
           >
             {{ link.name }}
           </RouterLink>
+          <RouterLink
+            to="/#cases"
+            class="block px-3 py-2 text-base font-medium rounded-md"
+            :class="isCasesActive ? 'text-blue-600 bg-blue-50' : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50'"
+            @click="closeMenus"
+          >
+            {{ t('nav.cases') }}
+          </RouterLink>
           <div class="my-2" />
           <button
             class="w-full text-left px-3 py-2 text-base font-medium text-slate-600 hover:text-blue-600 hover:bg-slate-50 rounded-md flex items-center"
@@ -368,4 +438,23 @@ const goCareers = () => {
       </div>
     </Transition>
   </header>
+
+  <Teleport to="body">
+    <Transition
+      enter-active-class="transition duration-200 ease-out"
+      enter-from-class="opacity-0 -translate-y-2"
+      enter-to-class="opacity-100 translate-y-0"
+      leave-active-class="transition duration-150 ease-in"
+      leave-from-class="opacity-100 translate-y-0"
+      leave-to-class="opacity-0 -translate-y-2"
+    >
+      <div
+        v-if="showCopyToast"
+        class="fixed top-20 left-1/2 z-[100] -translate-x-1/2 rounded-lg bg-slate-900 px-4 py-2.5 text-sm text-white shadow-lg"
+        role="status"
+      >
+        {{ t('contact.copy.ok') }}
+      </div>
+    </Transition>
+  </Teleport>
 </template>

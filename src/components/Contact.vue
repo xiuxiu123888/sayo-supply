@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Building, Phone, Mail, Clock } from 'lucide-vue-next';
+import { Building, Phone, Mail } from 'lucide-vue-next';
 import { useLanguage } from '../i18n';
 import { apiPost } from '../api';
 
@@ -13,6 +13,32 @@ const message = ref('');
 const loading = ref(false);
 const error = ref('');
 const success = ref('');
+const copiedKey = ref('');
+let copiedTimer: ReturnType<typeof setTimeout> | null = null;
+
+const PHONE = '+86 18823730235';
+const EMAIL = 'shadow@sayotrans.com';
+
+const copyText = async (key: string, text: string) => {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch {
+    const input = document.createElement('textarea');
+    input.value = text;
+    input.setAttribute('readonly', '');
+    input.style.position = 'fixed';
+    input.style.left = '-9999px';
+    document.body.appendChild(input);
+    input.select();
+    document.execCommand('copy');
+    document.body.removeChild(input);
+  }
+  copiedKey.value = key;
+  if (copiedTimer) clearTimeout(copiedTimer);
+  copiedTimer = setTimeout(() => {
+    copiedKey.value = '';
+  }, 1500);
+};
 
 const normalizePhone = (value: string) => value.replace(/[\s\-()]/g, '');
 
@@ -75,8 +101,14 @@ const onSubmit = async (e: Event) => {
               </div>
               <div>
                 <h4 class="font-medium text-slate-500 text-sm mb-1">{{ t('contact.info.addr') }}</h4>
-                <p class="text-xl font-semibold text-slate-900 leading-snug">{{ t('contact.info.addr1') }}</p>
-                <p class="text-slate-500 text-sm mt-1">{{ t('contact.info.addr2') }}</p>
+                <button
+                  type="button"
+                  class="block text-left text-xl font-semibold text-slate-900 hover:text-blue-600 transition-colors cursor-pointer"
+                  @click="copyText('addr', t('contact.info.addr1'))"
+                >
+                  {{ t('contact.info.addr1') }}
+                </button>
+                <p v-if="copiedKey === 'addr'" class="text-sm text-green-600 mt-1">{{ t('contact.copy.ok') }}</p>
               </div>
             </div>
 
@@ -86,18 +118,14 @@ const onSubmit = async (e: Event) => {
               </div>
               <div>
                 <h4 class="font-medium text-slate-500 text-sm mb-1">{{ t('contact.info.biz') }}</h4>
-                <a
-                  href="tel:4008888888"
-                  class="block text-2xl font-bold text-slate-900 tracking-wide hover:text-blue-600 transition-colors"
+                <button
+                  type="button"
+                  class="block text-left text-xl font-semibold text-slate-900 hover:text-blue-600 transition-colors cursor-pointer"
+                  @click="copyText('phone', PHONE)"
                 >
-                  400-888-8888
-                </a>
-                <a
-                  href="mailto:sales@sayo-supply.com"
-                  class="block text-lg font-medium text-slate-800 mt-1 hover:text-blue-600 transition-colors"
-                >
-                  sales@sayo-supply.com
-                </a>
+                  {{ PHONE }}
+                </button>
+                <p v-if="copiedKey === 'phone'" class="text-sm text-green-600 mt-1">{{ t('contact.copy.ok') }}</p>
               </div>
             </div>
 
@@ -107,22 +135,14 @@ const onSubmit = async (e: Event) => {
               </div>
               <div>
                 <h4 class="font-medium text-slate-500 text-sm mb-1">{{ t('contact.info.collab') }}</h4>
-                <a
-                  href="mailto:partner@sayo-supply.com"
-                  class="block text-xl font-semibold text-slate-900 hover:text-blue-600 transition-colors"
+                <button
+                  type="button"
+                  class="block text-left text-xl font-semibold text-slate-900 hover:text-blue-600 transition-colors cursor-pointer"
+                  @click="copyText('email', EMAIL)"
                 >
-                  partner@sayo-supply.com
-                </a>
-              </div>
-            </div>
-
-            <div class="flex items-start gap-4">
-              <div class="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center shrink-0">
-                <Clock class="w-6 h-6 text-amber-500" />
-              </div>
-              <div>
-                <h4 class="font-medium text-slate-500 text-sm mb-1">{{ t('contact.info.time') }}</h4>
-                <p class="text-lg font-semibold text-slate-900">{{ t('contact.info.time1') }}</p>
+                  {{ EMAIL }}
+                </button>
+                <p v-if="copiedKey === 'email'" class="text-sm text-green-600 mt-1">{{ t('contact.copy.ok') }}</p>
               </div>
             </div>
           </div>

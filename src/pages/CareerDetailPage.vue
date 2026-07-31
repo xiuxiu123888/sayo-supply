@@ -38,13 +38,6 @@ const metaRows = computed(() => {
 
     <section class="py-10 md:py-14">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <RouterLink
-          to="/careers"
-          class="inline-flex text-sm text-slate-500 hover:text-blue-600 mb-8 transition-colors"
-        >
-          ← 返回岗位列表
-        </RouterLink>
-
         <template v-if="job">
           <h2 class="text-2xl md:text-[28px] font-bold text-slate-900 mb-2">{{ job.title }}</h2>
           <p class="text-sm text-slate-500 mb-10">工作地点：{{ job.location }}</p>
@@ -73,7 +66,7 @@ const metaRows = computed(() => {
 
         <template v-else>
           <h2 class="text-2xl font-bold text-slate-900 mb-4">岗位不存在</h2>
-          <p class="text-sm text-slate-500">请返回岗位列表查看在招职位。</p>
+          <p class="text-sm text-slate-500">当前没有可展示的招聘岗位。</p>
         </template>
       </div>
     </section>

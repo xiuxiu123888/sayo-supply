@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useLanguage } from '../i18n';
-import case1 from '../assets/images/da332dab42765d4e19fbc02346467a182f4498361416b1-RUUM7I_fw658webp.webp';
-import case2 from '../assets/images/36e7c5af0a0375899f7304158d96de9cacebd613149448-WpfmSR_fw658webp.webp';
+import case1 from '../assets/images/Gemini_Generated_Image_3lqyj63lqyj63lqy.png';
+import case2 from '../assets/images/da332dab42765d4e19fbc02346467a182f4498361416b1-RUUM7I_fw658webp.webp';
 import case3 from '../assets/images/19b73930259411eca5b4d6b93b7440242b9ebd69361be-lpGwuq_fw658webp.webp';
 
 const { t } = useLanguage();

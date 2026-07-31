@@ -14,7 +14,7 @@ const year = new Date().getFullYear();
           <RouterLink to="/" class="mb-4 flex items-center">
             <img :src="logo" alt="SAYO 山岳供应链" class="h-16 w-auto object-contain" />
           </RouterLink>
-          <p class="text-sm text-slate-500 max-w-xs mt-4">
+          <p class="text-sm text-slate-500 max-w-xs mt-4 ml-[2px]">
             {{ t('hero.tagline') }}
           </p>
         </div>
@@ -31,10 +31,9 @@ const year = new Date().getFullYear();
         <div class="flex flex-col space-y-3 text-sm">
           <h4 class="text-slate-900 font-bold mb-2">{{ t('contact.info.title') }}</h4>
           <div class="flex flex-col space-y-3 text-slate-500">
-            <p><strong>{{ t('contact.info.biz') }}:</strong> 400-888-8888</p>
-            <p><strong>{{ t('contact.info.collab') }}:</strong> partner@sayo-supply.com</p>
-            <p><strong>{{ t('contact.info.addr') }}:</strong> {{ t('contact.info.addr1') }} {{ t('contact.info.addr2') }}</p>
-            <p><strong>{{ t('contact.info.time') }}:</strong> {{ t('contact.info.time1') }}</p>
+            <p><strong>{{ t('contact.info.biz') }}:</strong> +86 18823730235</p>
+            <p><strong>{{ t('contact.info.collab') }}:</strong> shadow@sayotrans.com</p>
+            <p><strong>{{ t('contact.info.addr') }}:</strong> {{ t('contact.info.addr1') }}</p>
           </div>
         </div>
       </div>
