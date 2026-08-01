@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ArrowRight, Search } from 'lucide-vue-next';
 import { useLanguage } from '../i18n';
-import bgImage from '../assets/images/Gemini_Generated_Image_8u2uw8u2uw8u2uw8.png';
+import bgImage from '../assets/images/Gemini_Generated_Image_ut7lraut7lraut7l.png';
 
 const { t } = useLanguage();
 </script>
@@ -16,8 +16,8 @@ const { t } = useLanguage();
           alt="集装箱堆场"
           class="w-full h-full object-cover object-center"
         />
-        <div class="absolute inset-0 bg-gradient-to-b from-white/40 via-white/25 to-white/50" />
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.82)_0%,rgba(255,255,255,0.45)_42%,transparent_72%)]" />
+        <div class="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-white/20" />
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.72)_0%,rgba(255,255,255,0.28)_28%,transparent_52%)]" />
       </div>
 
       <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -25,13 +25,13 @@ const { t } = useLanguage();
           <p class="text-sm font-semibold text-blue-600 tracking-wide mb-2">
             {{ t('hero.tagline') }}
           </p>
-          <p class="text-sm text-slate-500 mb-5">{{ t('hero.tagline.en') }}</p>
+          <p class="text-sm text-blue-600 mb-5">{{ t('hero.tagline.en') }}</p>
 
           <h1 class="text-[38px] font-extrabold text-slate-900 leading-tight mb-5 text-balance">
             {{ t('hero.title1') }}<span class="text-blue-600">{{ t('hero.title2') }}</span>
           </h1>
 
-          <p class="text-lg text-slate-600 mb-8 leading-relaxed text-balance">
+          <p class="text-lg text-blue-600 mb-8 leading-relaxed text-balance">
             {{ t('hero.desc1') }}
           </p>
 
