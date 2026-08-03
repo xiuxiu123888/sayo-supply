@@ -100,28 +100,28 @@ const copyText = async (text: string) => {
   <header class="fixed w-full z-50 transition-all duration-300">
     <div
       class="bg-slate-900 text-slate-300 text-xs transition-all duration-300 overflow-hidden"
-      :class="isScrolled ? 'h-0 py-0 opacity-0' : 'h-8 py-2 opacity-100'"
+      :class="isScrolled ? 'max-h-0 py-0 opacity-0' : 'max-h-24 py-2 opacity-100'"
     >
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-full">
-        <div class="flex items-center gap-6">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center gap-3">
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-1 sm:gap-6 min-w-0">
           <button
             type="button"
-            class="flex items-center hover:text-amber-400 transition-colors text-sm"
+            class="flex items-center hover:text-amber-400 transition-colors text-xs sm:text-sm"
             @click="copyText(HEADER_EMAIL)"
           >
-            <Mail class="w-4 h-4 mr-1.5 text-amber-500" />
+            <Mail class="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 text-amber-500 shrink-0" />
             <span>{{ HEADER_EMAIL }}</span>
           </button>
           <button
             type="button"
-            class="flex items-center hover:text-amber-400 transition-colors text-sm"
+            class="flex items-center hover:text-amber-400 transition-colors text-xs sm:text-sm"
             @click="copyText(HEADER_PHONE)"
           >
-            <Phone class="w-4 h-4 mr-1.5 text-amber-500" />
+            <Phone class="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 text-amber-500 shrink-0" />
             <span>{{ HEADER_PHONE }}</span>
           </button>
         </div>
-        <div class="hidden sm:block text-slate-400 text-sm">
+        <div class="hidden md:block text-slate-400 text-sm shrink-0">
           {{ t('hero.tagline') }}
         </div>
       </div>
