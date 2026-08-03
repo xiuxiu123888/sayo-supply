@@ -111,6 +111,8 @@ const content = computed(() => {
           <img
             :src="content.map"
             :alt="activeTab.label"
+            loading="lazy"
+            decoding="async"
             class="w-full h-auto"
           />
         </div>

@@ -3,7 +3,7 @@ import { computed, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useLanguage } from '../i18n';
 import PageHero from '../components/PageHero.vue';
-import imgFtl from '../assets/images/ftl.png';
+import imgFtl from '../assets/images/ftl.webp';
 import imgLtl from '../assets/images/LTL.png';
 
 const { t } = useLanguage();
@@ -92,6 +92,8 @@ const content = computed(() => {
           <img
             :src="content.map"
             :alt="activeTab.label"
+            loading="lazy"
+            decoding="async"
             class="w-full h-auto"
           />
         </div>

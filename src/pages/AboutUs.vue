@@ -16,7 +16,7 @@ import {
 import { useLanguage } from '../i18n';
 import PageHero from '../components/PageHero.vue';
 import yardBg from '../assets/images/8bba2eb8a5cdafca269c481c6ed5802dda80b148322eec-SSykN0_fw658webp.webp';
-import aboutImage from '../assets/images/about.png';
+import aboutImage from '../assets/images/933443fc9ceca686a00b872111a2a9e7af1ed877998188-o8dbWK_fw658webp.webp';
 import philosophyImg1 from '../assets/images/8f8030cbd3e763cb9471f0cda20458dc1260d7492e206-xVwPUz_fw658webp.webp';
 import philosophyImg2 from '../assets/images/98f7b44ec004915b0ab606745ce1b109ede1d0351444e8-u5BrLb_fw658webp.webp';
 
@@ -104,7 +104,7 @@ const philosophyCells = computed(() => [
           </div>
 
           <div class="relative">
-            <div class="rounded-2xl overflow-hidden shadow-2xl relative z-10 aspect-[4/5]">
+            <div class="rounded-2xl overflow-hidden shadow-2xl relative z-10 aspect-[658/438]">
               <img :src="aboutImage" alt="Warehouse and Logistics" class="w-full h-full object-cover" />
               <div class="absolute inset-0 bg-blue-900/10 mix-blend-multiply" />
             </div>

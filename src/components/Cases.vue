@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useLanguage } from '../i18n';
-import case1 from '../assets/images/Gemini_Generated_Image_3lqyj63lqyj63lqy.png';
+import case1 from '../assets/images/case-1.webp';
 import case2 from '../assets/images/da332dab42765d4e19fbc02346467a182f4498361416b1-RUUM7I_fw658webp.webp';
 import case3 from '../assets/images/19b73930259411eca5b4d6b93b7440242b9ebd69361be-lpGwuq_fw658webp.webp';
 
@@ -55,6 +55,8 @@ const cases = computed(() => [
             <img
               :src="item.image"
               :alt="item.title"
+              loading="lazy"
+              decoding="async"
               class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
             <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/30 to-transparent" />

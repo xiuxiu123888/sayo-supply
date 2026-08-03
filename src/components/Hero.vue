@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ArrowRight, Search } from 'lucide-vue-next';
 import { useLanguage } from '../i18n';
-import bgImage from '../assets/images/Gemini_Generated_Image_ut7lraut7lraut7l.png';
+import bgImage from '../assets/images/hero-bg.webp';
 
 const { t } = useLanguage();
 </script>
@@ -14,10 +14,12 @@ const { t } = useLanguage();
         <img
           :src="bgImage"
           alt="集装箱堆场"
+          fetchpriority="high"
+          decoding="async"
           class="w-full h-full object-cover object-center"
         />
-        <div class="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-white/20" />
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.72)_0%,rgba(255,255,255,0.28)_28%,transparent_52%)]" />
+        <div class="absolute inset-0 bg-gradient-to-b from-white/40 via-white/25 to-white/50" />
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.85)_0%,rgba(255,255,255,0.45)_35%,transparent_62%)]" />
       </div>
 
       <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
