@@ -43,7 +43,6 @@ const { t } = useLanguage();
               {{ t('hero.btn.consult') }}
               <ArrowRight class="ml-2 w-4 h-4" />
             </RouterLink>
-            
           </div>
         </div>
       </div>

@@ -7,10 +7,11 @@ import Database from 'better-sqlite3';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT || 3010);
-const ADMIN_USER = 'admin';
-const ADMIN_PASS = 'sayo123456';
+const ADMIN_USER = process.env.ADMIN_USER || 'admin';
+const ADMIN_PASS = process.env.ADMIN_PASS || 'sayo123456';
 const TOKEN_SECRET = process.env.ADMIN_TOKEN_SECRET || 'sayo-admin-secret-change-me';
 const TOKEN_TTL_MS = 1000 * 60 * 60 * 12; // 12 hours
+const distDir = path.join(__dirname, '..', 'dist');
 
 const dbPath = path.join(__dirname, 'data.sqlite');
 const db = new Database(dbPath);
@@ -238,7 +239,18 @@ app.patch('/api/admin/messages/:id', requireAuth, (req, res) => {
   res.json({ ok: true, data: updated });
 });
 
+// Production: serve built frontend and SPA fallback
+app.use(express.static(distDir));
+app.use((req, res, next) => {
+  if (req.path.startsWith('/api')) return next();
+  if (req.method !== 'GET' && req.method !== 'HEAD') return next();
+  res.sendFile(path.join(distDir, 'index.html'), (err) => {
+    if (err) next();
+  });
+});
+
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Sayo API listening on http://0.0.0.0:${PORT}`);
   console.log(`SQLite: ${dbPath}`);
+  console.log(`Static: ${distDir}`);
 });

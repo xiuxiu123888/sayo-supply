@@ -269,6 +269,14 @@ const copyText = async (text: string) => {
             </div>
 
             <RouterLink
+              to="/#cases"
+              class="transition-colors text-sm font-medium"
+              :class="isCasesActive ? 'text-blue-600' : 'text-slate-600 hover:text-blue-600'"
+            >
+              {{ t('nav.cases') }}
+            </RouterLink>
+
+            <RouterLink
               v-for="link in navLinks"
               :key="link.href"
               :to="link.href"
@@ -276,14 +284,6 @@ const copyText = async (text: string) => {
               :class="route.path === link.href ? 'text-blue-600' : 'text-slate-600 hover:text-blue-600'"
             >
               {{ link.name }}
-            </RouterLink>
-
-            <RouterLink
-              to="/#cases"
-              class="transition-colors text-sm font-medium"
-              :class="isCasesActive ? 'text-blue-600' : 'text-slate-600 hover:text-blue-600'"
-            >
-              {{ t('nav.cases') }}
             </RouterLink>
           </div>
 
@@ -409,6 +409,14 @@ const copyText = async (text: string) => {
           </div>
 
           <RouterLink
+            to="/#cases"
+            class="block px-3 py-2 text-base font-medium rounded-md"
+            :class="isCasesActive ? 'text-blue-600 bg-blue-50' : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50'"
+            @click="closeMenus"
+          >
+            {{ t('nav.cases') }}
+          </RouterLink>
+          <RouterLink
             v-for="link in navLinks"
             :key="link.href"
             :to="link.href"
@@ -417,14 +425,6 @@ const copyText = async (text: string) => {
             @click="closeMenus"
           >
             {{ link.name }}
-          </RouterLink>
-          <RouterLink
-            to="/#cases"
-            class="block px-3 py-2 text-base font-medium rounded-md"
-            :class="isCasesActive ? 'text-blue-600 bg-blue-50' : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50'"
-            @click="closeMenus"
-          >
-            {{ t('nav.cases') }}
           </RouterLink>
           <div class="my-2" />
           <button
